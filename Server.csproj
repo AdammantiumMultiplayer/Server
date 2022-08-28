@@ -41,6 +41,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="ThunderRoad">
+      <HintPath>G:\Steam\steamapps\common\Blade &amp; Sorcery\BladeAndSorcery_Data\Managed\ThunderRoad.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine">
       <HintPath>..\Adammantium Multiplayer Mod\bin\Debug\UnityEngine.dll</HintPath>
     </Reference>
