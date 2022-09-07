@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{86206478-6BB2-4A8F-8275-10EA44897D9D}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Adammantium_Multiplayer_Mod_Standalone</RootNamespace>
-    <AssemblyName>Adammantium_Multiplayer_Mod_Standalone</AssemblyName>
+    <RootNamespace>AMP_Server</RootNamespace>
+    <AssemblyName>AMP_Server</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -74,9 +74,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Adammantium Multiplayer Mod\Adammantium Multiplayer Mod.csproj">

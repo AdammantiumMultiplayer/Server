@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Adammantium Multiplayer Mod Standalone")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("AMP Server")]
+[assembly: AssemblyDescription("Dedicated Server Wrapper for AMP")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Adammantium Multiplayer Mod Standalone")]
-[assembly: AssemblyCopyright("Copyright ©  2022")]
+[assembly: AssemblyCompany("Adammantium @ DevForce.de")]
+[assembly: AssemblyProduct("AMP Server")]
+[assembly: AssemblyCopyright("Copyright © 2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
