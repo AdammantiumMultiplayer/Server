@@ -1,8 +1,14 @@
 ﻿using AMP;
 using AMP.Data;
 using AMP.Logging;
+using AMP.Threading;
+using AMP_Server.Commands;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
+using System.Threading;
+using UnityEngine;
 
 namespace AMP_Server {
     internal class Program {
@@ -27,6 +33,7 @@ namespace AMP_Server {
             SERVER_NAME = "AMP " + SERVER_VERSION;
         }
 
+        private static Thread serverThread;
 
         static void Main(string[] args) {
             ReadVersion();
@@ -37,11 +44,10 @@ namespace AMP_Server {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
 
             Log.Info("");
-            Log.Info("");
-            Log.Info("<color=#FF8C00>" +
+            Log.Info( "<color=#FF8C00>" +
                       ",_._._._._._._._._|__________________________________________________________.\r\n" +
                       "|_X_X_X_X_X_X_X_X_|█████████████████████████████████████████████████████████▛\r\n" +
-                      "                  !\r\n" +
+                      "                  '\r\n" +
                       "\t\t\t   █████╗ ███╗   ███╗██████╗  \r\n" +
                       "\t\t\t  ██╔══██╗████╗ ████║██╔══██╗ \r\n" +
                       "\t\t\t  ███████║██╔████╔██║██████╔╝ \r\n" +
@@ -52,12 +58,60 @@ namespace AMP_Server {
                      $"\t\t\t    Mod Version: {ModManager.MOD_VERSION}\r\n" +
                       ".__________________________________________________________|_._._._._._._._._,\r\n" +
                       " ▜█████████████████████████████████████████████████████████|_X_X_X_X_X_X_X_X_|\r\n" +
-                      "                                                           !\r\n" +
+                      "                                                           '\r\n" +
                       "</color>");
+
+            RegisterCommands();
 
             ServerConfig.Load("server.ini");
 
             ModManager.HostDedicatedServer((uint) ServerConfig.maxPlayers, 26950);
+
+            serverThread = new Thread(() => {
+                while(ModManager.serverInstance != null) {
+                    Thread.Sleep(1);
+                    Dispatcher.UpdateTick();
+                }
+            });
+            serverThread.Start();
+
+            Console.CancelKeyPress += delegate {
+                new StopCommand().Process(new string[0]);
+                serverThread.Abort();
+                Environment.Exit(0);
+            };
+
+            while(ModManager.serverInstance != null) {
+                var input = Console.ReadLine();
+
+                if(input == null || input.Length == 0) continue;
+
+                string[] command_args = input.Split(' ');
+                string command = command_args[0].ToLower();
+                List<string> list = new List<string>(command_args);
+                list.RemoveAt(0);
+
+                if(CommandHandler.CommandHandlers.ContainsKey(command)) {
+                    string response = CommandHandler.CommandHandlers[command].Process(
+                                        list.ToArray()
+                                      );
+                    if(response != null) Log.Info(response);
+                } else {
+                    Log.Info($"Command \"{ command }\" could not be found.");
+                }
+                Thread.Sleep(1);
+            }
+        }
+
+        static void RegisterCommands() {
+            RegisterCommand("help", new HelpCommand());
+            RegisterCommand("stop", new StopCommand());
+            RegisterCommand("list", new ListCommand());
+            RegisterCommand("status", new StatusCommand());
+        }
+
+        static void RegisterCommand(string command, CommandHandler commandHandler) {
+            CommandHandler.CommandHandlers.Add(command.ToLower(), commandHandler);
         }
     }
 }
