@@ -12,11 +12,11 @@ namespace AMP_Server.Commands {
 
         public override string Process(string[] args) {
             Log.Info("Status:");
-            Log.Info("      Items: " + ModManager.serverInstance.items.Count);
-            Log.Info("  Creatures: " + ModManager.serverInstance.creatures.Count);
-            Log.Info("    Clients: " + ModManager.serverInstance.clients.Count + " / " + ModManager.serverInstance.maxClients);
-            if(ModManager.serverInstance.clients.Count > 0)
-                Log.Info("     " + String.Join(", ", ModManager.serverInstance.clients.Values.Select(client => client.name).ToArray()));
+            Log.Info("      Items: " + ModManager.serverInstance.spawnedItems);
+            Log.Info("  Creatures: " + ModManager.serverInstance.spawnedCreatures);
+            Log.Info("    Clients: " + ModManager.serverInstance.connectedClients + " / " + ModManager.serverInstance.maxClients);
+            if(ModManager.serverInstance.connectedClients > 0)
+                Log.Info("     " + String.Join(", ", ModManager.serverInstance.connectedClientList.Values.ToArray()));
 
             return null;
         }
