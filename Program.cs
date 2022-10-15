@@ -1,6 +1,7 @@
 ﻿using AMP;
 using AMP.Data;
 using AMP.Logging;
+using AMP.Network.Server;
 using AMP.Threading;
 using AMP_Server.Commands;
 using System;
@@ -63,9 +64,13 @@ namespace AMP_Server {
 
             RegisterCommands();
 
-            ServerConfig.Load("server.ini");
+            Conf.Load("server.ini");
+            ServerConfig.Load("config.ini");
 
-            ModManager.HostDedicatedServer((uint) ServerConfig.maxPlayers, 26950);
+            Server.DEFAULT_MAP = Conf.map;
+            Server.DEFAULT_MODE = Conf.mode;
+
+            ModManager.HostDedicatedServer((uint) ServerConfig.maxPlayers, Conf.port);
 
             serverThread = new Thread(() => {
                 while(ModManager.serverInstance != null) {
