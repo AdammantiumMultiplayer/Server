@@ -87,24 +87,28 @@ namespace AMP_Server {
             };
 
             while(ModManager.serverInstance != null) {
-                var input = Console.ReadLine();
+                try {
+                    var input = Console.ReadLine();
 
-                if(input == null || input.Length == 0) continue;
+                    if(input == null || input.Length == 0) continue;
 
-                string[] command_args = input.Split(' ');
-                string command = command_args[0].ToLower();
-                List<string> list = new List<string>(command_args);
-                list.RemoveAt(0);
+                    string[] command_args = input.Split(' ');
+                    string command = command_args[0].ToLower();
+                    List<string> list = new List<string>(command_args);
+                    list.RemoveAt(0);
 
-                if(CommandHandler.CommandHandlers.ContainsKey(command)) {
-                    string response = CommandHandler.CommandHandlers[command].Process(
-                                        list.ToArray()
-                                      );
-                    if(response != null) Log.Info(response);
-                } else {
-                    Log.Info($"Command \"{ command }\" could not be found.");
+                    if(CommandHandler.CommandHandlers.ContainsKey(command)) {
+                        string response = CommandHandler.CommandHandlers[command].Process(
+                                            list.ToArray()
+                                          );
+                        if(response != null) Log.Info(response);
+                    } else {
+                        Log.Info($"Command \"{ command }\" could not be found.");
+                    }
+                    Thread.Sleep(1);
+                }catch(Exception e) {
+                    Log.Err(e);
                 }
-                Thread.Sleep(1);
             }
         }
 
