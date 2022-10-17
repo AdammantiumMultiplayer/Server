@@ -66,6 +66,8 @@ namespace AMP_Server {
 
             Conf.Load("server.ini");
             ServerConfig.Load("config.ini");
+            GameConfig.showPlayerNames = false;
+            GameConfig.showPlayerHealthBars = false;
 
             Server.DEFAULT_MAP = Conf.map;
             Server.DEFAULT_MODE = Conf.mode;
