@@ -1,11 +1,7 @@
 ﻿using AMP;
 using AMP.Logging;
-using AMP.Network.Data;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AMP_Server.Commands {
     internal class StatusCommand : CommandHandler {
