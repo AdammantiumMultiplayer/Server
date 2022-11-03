@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="CommandHandler.cs" />
     <Compile Include="Commands\ListCommand.cs" />
+    <Compile Include="Commands\SayCommand.cs" />
     <Compile Include="Commands\StatusCommand.cs" />
     <Compile Include="Commands\StopCommand.cs" />
     <Compile Include="Commands\HelpCommand.cs" />

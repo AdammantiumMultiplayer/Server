@@ -118,10 +118,11 @@ namespace AMP_Server {
         }
 
         static void RegisterCommands() {
-            RegisterCommand("help", new HelpCommand());
-            RegisterCommand("stop", new StopCommand());
-            RegisterCommand("list", new ListCommand());
+            RegisterCommand("help",   new HelpCommand()  );
+            RegisterCommand("stop",   new StopCommand()  );
+            RegisterCommand("list",   new ListCommand()  );
             RegisterCommand("status", new StatusCommand());
+            RegisterCommand("say",    new SayCommand()   );
         }
 
         static void RegisterCommand(string command, CommandHandler commandHandler) {
