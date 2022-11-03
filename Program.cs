@@ -123,6 +123,7 @@ namespace AMP_Server {
             RegisterCommand("list",   new ListCommand()  );
             RegisterCommand("status", new StatusCommand());
             RegisterCommand("say",    new SayCommand()   );
+            RegisterCommand("si",     new SpawnItemCommand());
         }
 
         static void RegisterCommand(string command, CommandHandler commandHandler) {

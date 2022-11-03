@@ -15,7 +15,7 @@ namespace AMP_Server.Commands {
         }
 
         public override string GetHelp() {
-            return "Shows the status of the server.";
+            return "Shows the specified message to all players.";
         }
     }
 }
