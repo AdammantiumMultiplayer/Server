@@ -6,6 +6,7 @@ using AMP.Threading;
 using AMP_Server.Commands;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 
@@ -53,8 +54,8 @@ namespace AMP_Server {
                       "\t\t\t  ██╔══██║██║╚██╔╝██║██╔═══╝  \r\n" +
                       "\t\t\t  ██║  ██║██║ ╚═╝ ██║██║      \r\n" +
                       "\t\t\t  ╚═╝  ╚═╝╚═╝     ╚═╝╚═╝      \r\n" +
-                     $"\t\t\t Server Version: {SERVER_VERSION}\r\n" +
-                     $"\t\t\t    Mod Version: {ModManager.MOD_VERSION}\r\n" +
+                     $"\t\t\t Server Version: { SERVER_VERSION }\r\n" +
+                     $"\t\t\t    Mod Version: { ModManager.MOD_VERSION }\r\n" +
                       ".__________________________________________________________|_._._._._._._._._,\r\n" +
                       " ▜█████████████████████████████████████████████████████████|_X_X_X_X_X_X_X_X_|\r\n" +
                       "                                                           '\r\n" +
@@ -97,13 +98,17 @@ namespace AMP_Server {
                     List<string> list = new List<string>(command_args);
                     list.RemoveAt(0);
 
-                    if(CommandHandler.CommandHandlers.ContainsKey(command)) {
-                        string response = CommandHandler.CommandHandlers[command].Process(
+                    try {
+                        KeyValuePair<string, CommandHandler> foundCommand =
+                            CommandHandler.CommandHandlers.First((item) => item.Key.Equals(command)
+                                                                        || item.Value.aliases.Contains(command));
+
+                        string response = foundCommand.Value.Process(
                                             list.ToArray()
-                                          );
+                                            );
                         if(response != null) Log.Info(response);
-                    } else {
-                        Log.Info($"Command \"{ command }\" could not be found.");
+                    } catch(InvalidOperationException) {
+                        Log.Info($"Command \"{command}\" could not be found.");
                     }
                     Thread.Sleep(1);
                 }catch(Exception e) {

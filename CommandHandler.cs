@@ -5,6 +5,8 @@ namespace AMP_Server {
 
         public static Dictionary<string, CommandHandler> CommandHandlers = new Dictionary<string, CommandHandler>();
 
+        internal virtual string[] aliases => new string[0];
+
         public virtual string Process(string[] args) {
             return GetHelp();
         }

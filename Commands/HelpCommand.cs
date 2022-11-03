@@ -1,6 +1,8 @@
 ﻿namespace AMP_Server.Commands {
     internal class HelpCommand : CommandHandler {
 
+        internal override string[] aliases => new string[] { "?" };
+
         public override string Process(string[] args) {
             if(args.Length == 1) {
                 if(CommandHandlers.ContainsKey(args[0].ToLower())) {
