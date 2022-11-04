@@ -1,4 +1,4 @@
-﻿namespace AMP_Server.Commands {
+﻿namespace AMPS.Commands {
     internal class HelpCommand : CommandHandler {
 
         internal override string[] aliases => new string[] { "?" };

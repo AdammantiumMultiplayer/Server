@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AMP_Server {
+namespace AMPS {
     public class CommandHandler {
 
         public static Dictionary<string, CommandHandler> CommandHandlers = new Dictionary<string, CommandHandler>();

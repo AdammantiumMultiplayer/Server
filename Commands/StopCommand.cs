@@ -1,6 +1,6 @@
 ﻿using AMP;
 
-namespace AMP_Server.Commands {
+namespace AMPS.Commands {
     internal class StopCommand : CommandHandler {
 
         internal override string[] aliases => new string[] { "exit" };

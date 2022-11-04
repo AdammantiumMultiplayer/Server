@@ -3,7 +3,7 @@ using AMP.Network.Packets.Implementation;
 using System;
 using UnityEngine;
 
-namespace AMP_Server.Commands {
+namespace AMPS.Commands {
     internal class SayCommand : CommandHandler {
 
         public override string Process(string[] args) {

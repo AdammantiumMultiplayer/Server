@@ -3,14 +3,15 @@ using AMP.Data;
 using AMP.Logging;
 using AMP.Network.Server;
 using AMP.Threading;
-using AMP_Server.Commands;
+using AMP.Web;
+using AMPS.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
 
-namespace AMP_Server {
+namespace AMPS {
     internal class Program {
         public static string SERVER_DEV_STATE = "Alpha";
         public static string SERVER_VERSION = "";
@@ -118,11 +119,11 @@ namespace AMP_Server {
         }
 
         static void RegisterCommands() {
-            RegisterCommand("help",   new HelpCommand()  );
-            RegisterCommand("stop",   new StopCommand()  );
-            RegisterCommand("list",   new ListCommand()  );
-            RegisterCommand("status", new StatusCommand());
-            RegisterCommand("say",    new SayCommand()   );
+            RegisterCommand("help",   new HelpCommand()     );
+            RegisterCommand("stop",   new StopCommand()     );
+            RegisterCommand("list",   new ListCommand()     );
+            RegisterCommand("status", new StatusCommand()   );
+            RegisterCommand("say",    new SayCommand()      );
             RegisterCommand("si",     new SpawnItemCommand());
         }
 

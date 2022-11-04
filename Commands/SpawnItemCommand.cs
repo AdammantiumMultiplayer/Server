@@ -1,10 +1,9 @@
 ﻿using AMP;
 using AMP.Network.Data;
 using AMP.Network.Packets.Implementation;
-using System;
 using UnityEngine;
 
-namespace AMP_Server.Commands {
+namespace AMPS.Commands {
     internal class SpawnItemCommand : CommandHandler {
 
         internal override string[] aliases => new string[] { "si", "spawnitem" };

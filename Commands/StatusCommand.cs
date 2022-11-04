@@ -3,7 +3,7 @@ using AMP.Logging;
 using System;
 using System.Linq;
 
-namespace AMP_Server.Commands {
+namespace AMPS.Commands {
     internal class StatusCommand : CommandHandler {
 
         public override string Process(string[] args) {
