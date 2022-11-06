@@ -37,7 +37,7 @@ namespace AMP.DedicatedServer {
 
                         loadedPlugins.Add(plugin);
 
-                        Log.Info($"[PluginManager] Loaded plugin {plugin.Name} ({plugin.Version}) by {plugin.Author}");
+                        Log.Info("PluginManager", $"Loaded plugin {plugin.NAME} ({plugin.VERSION}) by {plugin.AUTHOR}");
                     }
                 }
             }
@@ -50,7 +50,7 @@ namespace AMP.DedicatedServer {
                 } catch(Exception e) {
                     Log.Err(e);
                 }
-                Log.Info($"[PluginManager] Unloaded plugin {plugin.Name} ({plugin.Version}) by {plugin.Author}");
+                Log.Info("PluginManager", $"Unloaded plugin {plugin.NAME} ({plugin.VERSION}) by {plugin.AUTHOR}");
             }
         }
     }
