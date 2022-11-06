@@ -1,7 +1,7 @@
 ﻿using AMP.Logging;
 using System.Collections.Generic;
 
-namespace AMPS.Commands {
+namespace AMP.DedicatedServer.Commands {
     internal class ListCommand : CommandHandler {
 
         public override string Process(string[] args) {

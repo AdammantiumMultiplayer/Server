@@ -1,9 +1,8 @@
-﻿using AMP;
-using AMP.Logging;
+﻿using AMP.Logging;
 using System;
 using System.Linq;
 
-namespace AMPS.Commands {
+namespace AMP.DedicatedServer.Commands {
     internal class StatusCommand : CommandHandler {
 
         public override string Process(string[] args) {

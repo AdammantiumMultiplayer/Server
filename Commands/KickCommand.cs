@@ -1,4 +1,4 @@
-﻿namespace AMPS.Commands {
+﻿namespace AMP.DedicatedServer.Commands {
     internal class KickCommand : CommandHandler {
 
         internal override string[] aliases => new string[] { "kick" };

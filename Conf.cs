@@ -1,6 +1,6 @@
 ﻿using AMP.Data;
 
-namespace AMPS {
+namespace AMP.DedicatedServer {
     internal class Conf {
         public static INIFile settings;
 

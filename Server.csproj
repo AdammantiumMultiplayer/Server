@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{86206478-6BB2-4A8F-8275-10EA44897D9D}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>AMPS</RootNamespace>
+    <RootNamespace>AMP.DedicatedServer</RootNamespace>
     <AssemblyName>AMP_Server</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -50,7 +50,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>AMPS.Program</StartupObject>
+    <StartupObject>AMP.DedicatedServer.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -80,6 +80,7 @@
     <Compile Include="Commands\HelpCommand.cs" />
     <Compile Include="Conf.cs" />
     <Compile Include="Plugins\AMP_Plugin.cs" />
+    <Compile Include="Plugins\PluginEventHandler.cs" />
     <Compile Include="Plugins\PluginLoader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

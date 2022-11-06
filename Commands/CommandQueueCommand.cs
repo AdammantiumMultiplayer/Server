@@ -2,7 +2,7 @@
 using System.IO;
 using System.Threading;
 
-namespace AMPS.Commands {
+namespace AMP.DedicatedServer.Commands {
     internal class CommandQueueCommand : CommandHandler {
 
         internal override string[] aliases => new string[] { "cq" };

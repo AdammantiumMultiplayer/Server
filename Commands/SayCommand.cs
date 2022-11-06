@@ -1,9 +1,8 @@
-﻿using AMP;
-using AMP.Network.Packets.Implementation;
+﻿using AMP.Network.Packets.Implementation;
 using System;
 using UnityEngine;
 
-namespace AMPS.Commands {
+namespace AMP.DedicatedServer.Commands {
     internal class SayCommand : CommandHandler {
 
         public override string Process(string[] args) {

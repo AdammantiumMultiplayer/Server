@@ -1,16 +1,15 @@
-﻿using AMP;
-using AMP.Data;
+﻿using AMP.Data;
+using AMP.DedicatedServer.Commands;
 using AMP.Logging;
 using AMP.Network.Server;
 using AMP.Threading;
-using AMPS.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
 
-namespace AMPS {
+namespace AMP.DedicatedServer {
     internal class Program {
         public static string SERVER_DEV_STATE = "Alpha";
         public static string SERVER_VERSION = "";
@@ -73,7 +72,10 @@ namespace AMPS {
 
             ModManager.HostDedicatedServer((uint) ServerConfig.maxPlayers, Conf.port);
 
-            Plugins.PluginLoader.LoadPlugins("plugins");
+            #region Plugins
+            PluginLoader.LoadPlugins("plugins");
+            PluginEventHandler.RegisterEvents();
+            #endregion
 
             serverThread = new Thread(() => {
                 while(ModManager.serverInstance != null) {
@@ -102,6 +104,8 @@ namespace AMPS {
                     Log.Err(e);
                 }
             }
+
+            PluginLoader.UnloadPlugins();
         }
 
         public static void ProcessCommand(string input) {
