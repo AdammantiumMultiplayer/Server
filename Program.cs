@@ -3,7 +3,6 @@ using AMP.Data;
 using AMP.Logging;
 using AMP.Network.Server;
 using AMP.Threading;
-using AMP.Web;
 using AMPS.Commands;
 using System;
 using System.Collections.Generic;
@@ -74,6 +73,8 @@ namespace AMPS {
 
             ModManager.HostDedicatedServer((uint) ServerConfig.maxPlayers, Conf.port);
 
+            Plugins.PluginLoader.LoadPlugins("plugins");
+
             serverThread = new Thread(() => {
                 while(ModManager.serverInstance != null) {
                     Thread.Sleep(1);
@@ -94,23 +95,8 @@ namespace AMPS {
 
                     if(input == null || input.Length == 0) continue;
 
-                    string[] command_args = input.Split(' ');
-                    string command = command_args[0].ToLower();
-                    List<string> list = new List<string>(command_args);
-                    list.RemoveAt(0);
+                    ProcessCommand(input);
 
-                    try {
-                        KeyValuePair<string, CommandHandler> foundCommand =
-                            CommandHandler.CommandHandlers.First((item) => item.Key.Equals(command)
-                                                                        || item.Value.aliases.Contains(command));
-
-                        string response = foundCommand.Value.Process(
-                                            list.ToArray()
-                                            );
-                        if(response != null) Log.Info(response);
-                    } catch(InvalidOperationException) {
-                        Log.Info($"Command \"{command}\" could not be found.");
-                    }
                     Thread.Sleep(1);
                 }catch(Exception e) {
                     Log.Err(e);
@@ -118,13 +104,35 @@ namespace AMPS {
             }
         }
 
+        public static void ProcessCommand(string input) {
+            string[] command_args = input.Split(' ');
+            string command = command_args[0].ToLower();
+            List<string> list = new List<string>(command_args);
+            list.RemoveAt(0);
+
+            try {
+                KeyValuePair<string, CommandHandler> foundCommand =
+                    CommandHandler.CommandHandlers.First((item) => item.Key.Equals(command)
+                                                                || item.Value.aliases.Contains(command));
+
+                string response = foundCommand.Value.Process(
+                                    list.ToArray()
+                                    );
+                if(response != null) Log.Info(response);
+            } catch(InvalidOperationException) {
+                Log.Info($"Command \"{command}\" could not be found.");
+            }
+        }
+
         static void RegisterCommands() {
-            RegisterCommand("help",   new HelpCommand()     );
-            RegisterCommand("stop",   new StopCommand()     );
-            RegisterCommand("list",   new ListCommand()     );
-            RegisterCommand("status", new StatusCommand()   );
-            RegisterCommand("say",    new SayCommand()      );
-            RegisterCommand("si",     new SpawnItemCommand());
+            RegisterCommand("help",   new HelpCommand()        );
+            RegisterCommand("stop",   new StopCommand()        );
+            RegisterCommand("list",   new ListCommand()        );
+            RegisterCommand("status", new StatusCommand()      );
+            RegisterCommand("kick",   new KickCommand()        );
+            RegisterCommand("say",    new SayCommand()         );
+            RegisterCommand("si",     new SpawnItemCommand()   );
+            RegisterCommand("cq",     new CommandQueueCommand());
         }
 
         static void RegisterCommand(string command, CommandHandler commandHandler) {

@@ -74,9 +74,13 @@
     <Compile Include="Commands\SpawnItemCommand.cs" />
     <Compile Include="Commands\SayCommand.cs" />
     <Compile Include="Commands\StatusCommand.cs" />
+    <Compile Include="Commands\CommandQueueCommand.cs" />
+    <Compile Include="Commands\KickCommand.cs" />
     <Compile Include="Commands\StopCommand.cs" />
     <Compile Include="Commands\HelpCommand.cs" />
     <Compile Include="Conf.cs" />
+    <Compile Include="Plugins\AMP_Plugin.cs" />
+    <Compile Include="Plugins\PluginLoader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
