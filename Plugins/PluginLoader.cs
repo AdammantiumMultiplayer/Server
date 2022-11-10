@@ -1,4 +1,5 @@
-﻿using AMP.Logging;
+﻿using AMP.DedicatedServer.Data;
+using AMP.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -37,7 +38,7 @@ namespace AMP.DedicatedServer {
 
                         loadedPlugins.Add(plugin);
 
-                        Log.Info("PluginManager", $"Loaded plugin {plugin.NAME} ({plugin.VERSION}) by {plugin.AUTHOR}");
+                        Log.Info(Defines.PLUGIN_MANAGER, $"Loaded plugin {plugin.NAME} ({plugin.VERSION}) by {plugin.AUTHOR}");
                     }
                 }
             }
@@ -50,7 +51,7 @@ namespace AMP.DedicatedServer {
                 } catch(Exception e) {
                     Log.Err(e);
                 }
-                Log.Info("PluginManager", $"Unloaded plugin {plugin.NAME} ({plugin.VERSION}) by {plugin.AUTHOR}");
+                Log.Info(Defines.PLUGIN_MANAGER, $"Unloaded plugin {plugin.NAME} ({plugin.VERSION}) by {plugin.AUTHOR}");
             }
         }
     }

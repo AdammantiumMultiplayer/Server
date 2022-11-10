@@ -76,6 +76,7 @@
     <Compile Include="Commands\StatusCommand.cs" />
     <Compile Include="Commands\CommandQueueCommand.cs" />
     <Compile Include="Commands\KickCommand.cs" />
+    <Compile Include="Commands\PluginCommand.cs" />
     <Compile Include="Commands\StopCommand.cs" />
     <Compile Include="Commands\HelpCommand.cs" />
     <Compile Include="Conf.cs" />

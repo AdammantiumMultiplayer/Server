@@ -112,6 +112,7 @@ namespace AMP.DedicatedServer {
             RegisterCommand("say",    new SayCommand()         );
             RegisterCommand("si",     new SpawnItemCommand()   );
             RegisterCommand("cq",     new CommandQueueCommand());
+            RegisterCommand("pl",     new PluginCommand()      );
         }
 
         static void RegisterCommand(string command, CommandHandler commandHandler) {
