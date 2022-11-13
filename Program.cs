@@ -5,7 +5,7 @@ using AMP.Network.Server;
 using AMP.Threading;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Reflection;
 using System.Threading;
 
 namespace AMP.DedicatedServer {
@@ -29,13 +29,11 @@ namespace AMP.DedicatedServer {
                       "\t\t\t  ██║  ██║██║ ╚═╝ ██║██║      \r\n" +
                       "\t\t\t  ╚═╝  ╚═╝╚═╝     ╚═╝╚═╝      \r\n" +
                      $"\t\t\t Server Version: { Data.Defines.SERVER_VERSION }\r\n" +
-                     $"\t\t\t    Mod Version: {      Defines.MOD_VERSION }\r\n" +
+                     $"\t\t\t    Mod Version: {      Defines.MOD_VERSION    }\r\n" +
                       ".__________________________________________________________|_._._._._._._._._,\r\n" +
                       " ▜█████████████████████████████████████████████████████████|_X_X_X_X_X_X_X_X_|\r\n" +
                       "                                                           '\r\n" +
                       "</color>");
-
-            RegisterCommands();
 
             Conf.Load("server.ini");
             ServerConfig.Load("config.ini");
@@ -47,10 +45,15 @@ namespace AMP.DedicatedServer {
 
             ModManager.HostDedicatedServer((uint) ServerConfig.maxPlayers, Conf.port);
 
+            RegisterCommands();
+            int default_command_count = CommandHandler.CommandHandlers.Count;
+
             #region Plugins
             PluginLoader.LoadPlugins("plugins");
             PluginEventHandler.RegisterEvents();
+            int plugin_command_count = CommandHandler.CommandHandlers.Count - default_command_count;
             #endregion
+            Log.Info(Defines.SERVER, $"Found {default_command_count + plugin_command_count} (Default: {default_command_count} / Plugins: {plugin_command_count}) commands.");
 
             serverThread = new Thread(() => {
                 while(ModManager.serverInstance != null) {
@@ -89,34 +92,27 @@ namespace AMP.DedicatedServer {
             List<string> list = new List<string>(command_args);
             list.RemoveAt(0);
 
-            try {
-                KeyValuePair<string, CommandHandler> foundCommand =
-                    CommandHandler.CommandHandlers.First((item) => item.Key.Equals(command)
-                                                                || item.Value.aliases.Contains(command));
+            CommandHandler foundCommand = CommandHandler.GetCommandHandler(command);
 
-                string response = foundCommand.Value.Process(
+            if(foundCommand != null) {
+                string response = foundCommand.Process(
                                     list.ToArray()
                                     );
                 if(response != null) Log.Info(response);
-            } catch(InvalidOperationException) {
+            } else {
                 Log.Info($"Command \"{command}\" could not be found.");
             }
         }
 
         static void RegisterCommands() {
-            RegisterCommand("help",   new HelpCommand()        );
-            RegisterCommand("stop",   new StopCommand()        );
-            RegisterCommand("list",   new ListCommand()        );
-            RegisterCommand("status", new StatusCommand()      );
-            RegisterCommand("kick",   new KickCommand()        );
-            RegisterCommand("say",    new SayCommand()         );
-            RegisterCommand("si",     new SpawnItemCommand()   );
-            RegisterCommand("cq",     new CommandQueueCommand());
-            RegisterCommand("pl",     new PluginCommand()      );
-        }
-
-        static void RegisterCommand(string command, CommandHandler commandHandler) {
-            CommandHandler.CommandHandlers.Add(command.ToLower(), commandHandler);
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            Type[] types = assembly.GetTypes();
+            foreach(Type type in types) {
+                if(type.BaseType == typeof(CommandHandler)) {
+                    CommandHandler handler = (CommandHandler)Activator.CreateInstance(type);
+                    CommandHandler.RegisterCommandHandler(handler);
+                }
+            }
         }
     }
 }

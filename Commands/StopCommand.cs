@@ -1,15 +1,12 @@
 ﻿namespace AMP.DedicatedServer.Commands {
     internal class StopCommand : CommandHandler {
 
-        internal override string[] aliases => new string[] { "exit" };
+        public override string[] ALIASES => new string[] { "stop", "exit" };
+        public override string   HELP    => "Stops the server.";
 
         public override string Process(string[] args) {
             ModManager.StopHost();
             return null;
-        }
-
-        public override string GetHelp() {
-            return "Stops the server.";
         }
     }
 }

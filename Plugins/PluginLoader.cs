@@ -26,9 +26,10 @@ namespace AMP.DedicatedServer {
                 // Execute the method from the requested .dll using reflection (System.Reflection).
                 Assembly pluginAssembly = Assembly.LoadFrom(strDllPath);
                 Type[] types = pluginAssembly.GetTypes();
+                AMP_Plugin plugin = null;
                 foreach(Type type in types) {
                     if(type.BaseType == typeof(AMP_Plugin)) {
-                        AMP_Plugin plugin = (AMP_Plugin) Activator.CreateInstance(type);
+                        plugin = (AMP_Plugin) Activator.CreateInstance(type);
 
                         try {
                             plugin.OnStart();
@@ -37,9 +38,16 @@ namespace AMP.DedicatedServer {
                         }
 
                         loadedPlugins.Add(plugin);
-
-                        Log.Info(Defines.PLUGIN_MANAGER, $"Loaded plugin {plugin.NAME} ({plugin.VERSION}) by {plugin.AUTHOR}");
                     }
+                }
+                if(plugin != null) {
+                    foreach(Type type in types) {
+                        if(type.BaseType == typeof(CommandHandler)) {
+                            CommandHandler handler = (CommandHandler) Activator.CreateInstance(type);
+                            CommandHandler.RegisterCommandHandler(handler);
+                        }
+                    }
+                    Log.Info(Defines.PLUGIN_MANAGER, $"Loaded plugin {plugin.NAME} ({plugin.VERSION}) by {plugin.AUTHOR}");
                 }
             }
         }

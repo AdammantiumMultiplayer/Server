@@ -5,7 +5,8 @@ using System.Threading;
 namespace AMP.DedicatedServer.Commands {
     internal class CommandQueueCommand : CommandHandler {
 
-        internal override string[] aliases => new string[] { "cq" };
+        public override string[] ALIASES => new string[] { "cq" };
+        public override string   HELP    => "Executes a command queue script.";
 
         public override string Process(string[] args) {
             if(args.Length == 1 && args[0].Equals("stop")) {
@@ -68,10 +69,6 @@ namespace AMP.DedicatedServer.Commands {
                     executedCommand = null;
                 }
             }
-        }
-
-        public override string GetHelp() {
-            return "Executes a command queue script.";
         }
     }
 }

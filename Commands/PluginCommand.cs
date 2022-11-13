@@ -4,7 +4,8 @@ using AMP.Logging;
 namespace AMP.DedicatedServer.Commands {
     internal class PluginCommand : CommandHandler {
 
-        internal override string[] aliases => new string[] { "pl" };
+        public override string[] ALIASES => new string[] { "pl" };
+        public override string   HELP    => "Lists all plugins.";
 
         public override string Process(string[] args) {
             Log.Info(Defines.PLUGIN_MANAGER, $"{PluginLoader.loadedPlugins.Count} Plugin(s) loaded.");
@@ -14,10 +15,6 @@ namespace AMP.DedicatedServer.Commands {
             }
 
             return null;
-        }
-
-        public override string GetHelp() {
-            return "Lists all plugins.";
         }
     }
 }

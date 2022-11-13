@@ -1,15 +1,12 @@
 ﻿namespace AMP.DedicatedServer.Commands {
     internal class KickCommand : CommandHandler {
 
-        internal override string[] aliases => new string[] { "kick" };
+        public override string[] ALIASES => new string[] { "kick" };
+        public override string   HELP    => "Kicks a player. (Not implmented yet)";
 
         public override string Process(string[] args) {
             
             return null;
-        }
-
-        public override string GetHelp() {
-            return "Kicks a player.";
         }
     }
 }

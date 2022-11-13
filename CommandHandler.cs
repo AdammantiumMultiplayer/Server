@@ -1,19 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AMP.DedicatedServer {
     public class CommandHandler {
 
-        public static Dictionary<string, CommandHandler> CommandHandlers = new Dictionary<string, CommandHandler>();
+        public static List<CommandHandler> CommandHandlers = new List<CommandHandler>();
 
-        internal virtual string[] aliases => new string[0];
+        public virtual string[] ALIASES => new string[0];
+        public virtual string   HELP    => "No help provided.";
 
         public virtual string Process(string[] args) {
-            return GetHelp();
+            return HELP;
         }
 
-        public virtual string GetHelp() {
-            return "No help provided.";
+        public static void RegisterCommandHandler(CommandHandler handler) {
+            CommandHandlers.Add(handler);
         }
 
+        public static CommandHandler GetCommandHandler(string command) {
+            foreach(CommandHandler handler in CommandHandlers) {
+                if(handler.ALIASES.Contains(command, StringComparer.OrdinalIgnoreCase)) {
+                    return handler;
+                }
+            }
+            return null;
+        }
     }
 }

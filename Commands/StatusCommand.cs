@@ -5,6 +5,9 @@ using System.Linq;
 namespace AMP.DedicatedServer.Commands {
     internal class StatusCommand : CommandHandler {
 
+        public override string[] ALIASES => new string[] { "status" };
+        public override string   HELP    => "Shows the status of the server.";
+
         public override string Process(string[] args) {
             Log.Info("Status:");
             Log.Info("      Items: " + ModManager.serverInstance.spawnedItems);
@@ -14,10 +17,6 @@ namespace AMP.DedicatedServer.Commands {
                 Log.Info("     " + String.Join(", ", ModManager.serverInstance.connectedClientList.Values.ToArray()));
 
             return null;
-        }
-
-        public override string GetHelp() {
-            return "Shows the status of the server.";
         }
     }
 }
