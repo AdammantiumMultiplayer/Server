@@ -16,7 +16,7 @@ namespace AMP.DedicatedServer {
             string[] files = Directory.GetFiles(path);
 
             foreach(string file in files) {
-                LoadPlugin(file);
+                if(file.EndsWith(".dll")) LoadPlugin(file);
             }
         }
 

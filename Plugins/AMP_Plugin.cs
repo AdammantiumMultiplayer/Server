@@ -3,7 +3,6 @@ using AMP.Network.Data.Sync;
 
 namespace AMP.DedicatedServer {
     public class AMP_Plugin {
-
         public virtual string NAME { get; }
         public virtual string AUTHOR { get; }
         public virtual string VERSION { get; }
