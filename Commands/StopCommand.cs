@@ -5,6 +5,7 @@
         public override string   HELP    => "Stops the server.";
 
         public override string Process(string[] args) {
+            PluginLoader.UnloadPlugins();
             ModManager.StopHost();
             return null;
         }

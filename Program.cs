@@ -43,6 +43,7 @@ namespace AMP.DedicatedServer {
             Server.DEFAULT_MAP = Conf.map;
             Server.DEFAULT_MODE = Conf.mode;
 
+
             ModManager.HostDedicatedServer((uint) ServerConfig.maxPlayers, Conf.port);
 
             RegisterCommands();
