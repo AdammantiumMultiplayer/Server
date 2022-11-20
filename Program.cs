@@ -9,8 +9,8 @@ using System.Reflection;
 using System.Threading;
 
 namespace AMP.DedicatedServer {
-    internal class Program {
-        private static Thread serverThread;
+    public class Program {
+        public static Thread serverThread;
 
         static void Main(string[] args) {
             Log.loggerType = Log.LoggerType.CONSOLE;
@@ -43,8 +43,17 @@ namespace AMP.DedicatedServer {
             Server.DEFAULT_MAP = Conf.map;
             Server.DEFAULT_MODE = Conf.mode;
 
+            int port = Conf.port;
+            uint max_players = (uint) ServerConfig.maxPlayers;
+            if(args.Length > 0) {
+                port = ushort.Parse(args[0]);
 
-            ModManager.HostDedicatedServer((uint) ServerConfig.maxPlayers, Conf.port);
+                if(args.Length > 1) {
+                    max_players = uint.Parse(args[1]);
+                }
+            }
+
+            ModManager.HostDedicatedServer(max_players, port);
 
             RegisterCommands();
             int default_command_count = CommandHandler.CommandHandlers.Count;
