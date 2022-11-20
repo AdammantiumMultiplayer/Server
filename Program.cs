@@ -50,6 +50,10 @@ namespace AMP.DedicatedServer {
 
                 if(args.Length > 1) {
                     max_players = uint.Parse(args[1]);
+
+                    if(args.Length > 2) {
+                        ServerConfig.password = args[2];
+                    }
                 }
             }
 
