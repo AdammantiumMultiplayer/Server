@@ -7,10 +7,13 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
+using static AMP.Data.SafeFile;
 
 namespace AMP.DedicatedServer {
     public class Program {
         public static Thread serverThread;
+
+        internal static ServerConfig serverConfig;
 
         static void Main(string[] args) {
             Log.loggerType = Log.LoggerType.CONSOLE;
@@ -35,16 +38,18 @@ namespace AMP.DedicatedServer {
                       "                                                           '\r\n" +
                       "</color>");
 
-            Conf.Load("server.ini");
-            ServerConfig.Load("config.ini");
-            GameConfig.showPlayerNames = false;
-            GameConfig.showPlayerHealthBars = false;
+            serverConfig = ServerConfig.Load("server.json");
+            
+            ModManager.safeFile = new SafeFile();
+            ModManager.safeFile.hostingSettings = serverConfig.hostingSettings;
 
-            Server.DEFAULT_MAP = Conf.map;
-            Server.DEFAULT_MODE = Conf.mode;
+            Server.DEFAULT_MAP  = serverConfig.serverSettings.map;
+            Server.DEFAULT_MODE = serverConfig.serverSettings.mode;
 
-            int port = Conf.port;
-            uint max_players = (uint) ServerConfig.maxPlayers;
+            int  port        = serverConfig.serverSettings.port;
+            uint max_players = (uint) serverConfig.serverSettings.max_players;
+            string password  = serverConfig.serverSettings.password;
+
             if(args.Length > 0) {
                 port = ushort.Parse(args[0]);
 
@@ -52,12 +57,12 @@ namespace AMP.DedicatedServer {
                     max_players = uint.Parse(args[1]);
 
                     if(args.Length > 2) {
-                        ServerConfig.password = args[2];
+                        password = args[2];
                     }
                 }
             }
 
-            ModManager.HostDedicatedServer(max_players, port);
+            ModManager.HostDedicatedServer(max_players, port, password);
 
             RegisterCommands();
             int default_command_count = CommandHandler.CommandHandlers.Count;
