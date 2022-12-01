@@ -49,6 +49,7 @@ namespace AMP.DedicatedServer.Commands {
                         }
                     }
                 });
+                commandThread.Name = "CommandQueueProcessor";
                 commandThread.Start();
 
                 executedCommand = script;

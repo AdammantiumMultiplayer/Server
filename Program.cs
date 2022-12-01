@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
-using static AMP.Data.SafeFile;
 
 namespace AMP.DedicatedServer {
     public class Program {
@@ -80,6 +79,7 @@ namespace AMP.DedicatedServer {
                     Dispatcher.UpdateTick();
                 }
             });
+            serverThread.Name = "ServerThread";
             serverThread.Start();
 
             Console.CancelKeyPress += delegate {

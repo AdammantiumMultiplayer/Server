@@ -2,10 +2,7 @@
 using AMP.Logging;
 using AMP.Network.Data;
 using AMP.Network.Data.Sync;
-using AMP.Network.Server;
 using System;
-using ThunderRoad;
-using static ThunderRoad.AI.Action.IsGrabbing;
 
 namespace AMP.DedicatedServer {
     internal class PluginEventHandler {
