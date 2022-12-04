@@ -50,7 +50,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>AMP.DedicatedServer.Program</StartupObject>
+    <StartupObject>AMP.DedicatedServer.ServerInit</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -89,7 +89,7 @@
     <Compile Include="Plugins\AMP_Plugin.cs" />
     <Compile Include="Plugins\PluginEventHandler.cs" />
     <Compile Include="Plugins\PluginLoader.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="ServerInit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

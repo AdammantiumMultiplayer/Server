@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Threading;
 
 namespace AMP.DedicatedServer {
-    public class Program {
+    public class ServerInit {
         public static Thread serverThread;
 
         internal static ServerConfig serverConfig;

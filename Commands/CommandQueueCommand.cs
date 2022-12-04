@@ -43,7 +43,7 @@ namespace AMP.DedicatedServer.Commands {
                                     }
                                 } else {
                                     Log.Info(line);
-                                    Program.ProcessCommand(line);
+                                    ServerInit.ProcessCommand(line);
                                 }
                             }
                         }
