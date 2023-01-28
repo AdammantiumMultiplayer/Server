@@ -11,6 +11,7 @@ Server Wrapper to run Adammantium Multiplayer as a standalone server with basic 
 - Get the latest Server files in the [Release](https://github.com/Adammantium/-AMP-Server/releases) Tab
 - The lastest version of AMP from [Nexus](https://www.nexusmods.com/bladeandsorcery/mods/6888?tab=files) or the specific version you want to host
 - Installation of Blade and Sorcery to grab some required files
+__You can also use the [ServerManager](https://github.com/flexhd41/AMP-server-manager) made by flex hd.__
 ### What files are needed?
 #### AMP-Server
 - `AMP_Server.exe`

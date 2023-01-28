@@ -94,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Adammantium Multiplayer Mod\Adammantium Multiplayer Mod.csproj">
