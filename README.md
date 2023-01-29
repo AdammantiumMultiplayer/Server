@@ -16,17 +16,17 @@ __You can also use the [ServerManager](https://github.com/flexhd41/AMP-server-ma
 #### AMP-Server
 - `AMP_Server.exe`
 - `AMP_Server.pdb`
+- `Newtonsoft.Json.dll`
+- `UnityEngine.CoreModule.dll`
+- `UnityEngine.SharedInternalsModule.dll`
 - Optional: `plugins` folder
 #### AMP-Mod
 - `Adammantium Multiplayer Mod.dll`
 - `Adammantium Multiplayer Mod.pdb`
 #### Blade & Sorcery
 Navigate to your installation folder. When inside the folder go to `BladeAndSorcery_Data/Managed`.
-- `Dungen.dll`
-- `Newtonsoft.Json.dll`
-- `ThunderRoad.dll`
-- `UnityEngine.CoreModule.dll`
-- `UnityEngine.SharedInternalsModule.dll`  
+- `Dungeon.dll`
+- `ThunderRoad.dll`  
 **Note: I won't ship required .dll files of B&S with my server, because i don't own the rights to them, thats why you need to grab them yourself.**
 #### Your folder should like this:
 > ![image](https://user-images.githubusercontent.com/38858318/215270602-e3dbf7cc-9bc5-49c6-9453-311931d44779.png)
