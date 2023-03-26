@@ -18,7 +18,7 @@ namespace AMP.DedicatedServer {
             Log.loggerType = Log.LoggerType.CONSOLE;
 
             Console.OutputEncoding = System.Text.Encoding.UTF8;
-
+            
             Log.Info("");
             Log.Info( "<color=#FF8C00>" +
                       ",_._._._._._._._._|__________________________________________________________.\r\n" +
@@ -73,6 +73,10 @@ namespace AMP.DedicatedServer {
             #endregion
             Log.Info(Defines.SERVER, $"Found {default_command_count + plugin_command_count} (Default: {default_command_count} / Plugins: {plugin_command_count}) commands.");
 
+            if(serverConfig.serverSettings.showInServerList) {
+                ServerlistPinger.Start();
+            }
+
             serverThread = new Thread(() => {
                 while(ModManager.serverInstance != null) {
                     Thread.Sleep(1);
@@ -84,6 +88,7 @@ namespace AMP.DedicatedServer {
 
             Console.CancelKeyPress += delegate {
                 new StopCommand().Process(new string[0]);
+                ServerlistPinger.Stop();
                 serverThread.Abort();
                 Environment.Exit(0);
             };
@@ -102,6 +107,7 @@ namespace AMP.DedicatedServer {
                 }
             }
 
+            ServerlistPinger.Stop();
             PluginLoader.UnloadPlugins();
         }
 

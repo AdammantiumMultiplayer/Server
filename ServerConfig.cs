@@ -21,6 +21,11 @@ namespace AMP.DedicatedServer {
 
             public int max_players = 10;
             public string password = "";
+
+            public string masterServerUrl = "bns.devforce.de";
+            public bool showInServerList = false;
+            public string servername = "Unnamed Server";
+            public string serverdescription = "No description";
         }
 
         #region Save and Load

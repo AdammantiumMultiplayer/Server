@@ -91,17 +91,11 @@
     <Compile Include="Plugins\PluginLoader.cs" />
     <Compile Include="ServerInit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServerlistPinger.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="README.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Adammantium Multiplayer Mod\Adammantium Multiplayer Mod.csproj">
-      <Project>{98eed107-d836-466f-ae3e-7cb1e552bd62}</Project>
-      <Name>Adammantium Multiplayer Mod</Name>
-      <Private>True</Private>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
@@ -115,6 +109,11 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Adammantium Multiplayer Mod\Adammantium Multiplayer Mod.csproj">
+      <Project>{98EED107-D836-466F-AE3E-7CB1E552BD62}</Project>
+      <Name>Adammantium Multiplayer Mod</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
