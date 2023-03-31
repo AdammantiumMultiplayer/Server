@@ -25,7 +25,6 @@ __You can also use the [ServerManager](https://github.com/flexhd41/AMP-server-ma
 - `Adammantium Multiplayer Mod.pdb`
 #### Blade & Sorcery
 Navigate to your installation folder. When inside the folder go to `BladeAndSorcery_Data/Managed`.
-- `Dungeon.dll`
 - `ThunderRoad.dll`  
 - `ThunderRoad.Manikin.dll`  
 - `Unity.ResourceManager.dll`  
