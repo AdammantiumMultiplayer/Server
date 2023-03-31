@@ -49,7 +49,7 @@ namespace AMP.DedicatedServer {
             }
 
             pinger = new Thread(new ThreadStart(() => {
-                while(ServerInit.serverThread.IsAlive) {
+                while(ModManager.serverInstance != null) {
                     Thread.Sleep(60 * 1000);
 
                     httpWebRequest = (HttpWebRequest) WebRequest.Create($"{address}/ping.php");

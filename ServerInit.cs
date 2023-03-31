@@ -10,8 +10,6 @@ using System.Threading;
 
 namespace AMP.DedicatedServer {
     public class ServerInit {
-        public static Thread serverThread;
-
         internal static ServerConfig serverConfig;
 
         static void Main(string[] args) {
@@ -77,19 +75,9 @@ namespace AMP.DedicatedServer {
                 ServerlistPinger.Start();
             }
 
-            serverThread = new Thread(() => {
-                while(ModManager.serverInstance != null) {
-                    Thread.Sleep(1);
-                    Dispatcher.UpdateTick();
-                }
-            });
-            serverThread.Name = "ServerThread";
-            serverThread.Start();
-
             Console.CancelKeyPress += delegate {
                 new StopCommand().Process(new string[0]);
                 ServerlistPinger.Stop();
-                serverThread.Abort();
                 Environment.Exit(0);
             };
 
