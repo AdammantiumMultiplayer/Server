@@ -27,6 +27,10 @@ __You can also use the [ServerManager](https://github.com/flexhd41/AMP-server-ma
 Navigate to your installation folder. When inside the folder go to `BladeAndSorcery_Data/Managed`.
 - `Dungeon.dll`
 - `ThunderRoad.dll`  
+- `ThunderRoad.Manikin.dll`  
+- `Unity.ResourceManager.dll`  
+- `UnityEngine.PhysicsModule.dll`  
+
 **Note: I won't ship required .dll files of B&S with my server, because i don't own the rights to them, thats why you need to grab them yourself.**
 #### Your folder should like this:
 > ![image](https://user-images.githubusercontent.com/38858318/215270602-e3dbf7cc-9bc5-49c6-9453-311931d44779.png)
