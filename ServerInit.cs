@@ -2,7 +2,6 @@
 using AMP.DedicatedServer.Commands;
 using AMP.Logging;
 using AMP.Network.Server;
-using AMP.Threading;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -11,6 +10,8 @@ using System.Threading;
 namespace AMP.DedicatedServer {
     public class ServerInit {
         internal static ServerConfig serverConfig;
+
+        public static int port = 13698;
 
         static void Main(string[] args) {
             Log.loggerType = Log.LoggerType.CONSOLE;
@@ -43,7 +44,7 @@ namespace AMP.DedicatedServer {
             Server.DEFAULT_MAP  = serverConfig.serverSettings.map;
             Server.DEFAULT_MODE = serverConfig.serverSettings.mode;
 
-            int  port        = serverConfig.serverSettings.port;
+            port        = serverConfig.serverSettings.port;
             uint max_players = (uint) serverConfig.serverSettings.max_players;
             string password  = serverConfig.serverSettings.password;
 
@@ -59,21 +60,8 @@ namespace AMP.DedicatedServer {
                 }
             }
 
-            ModManager.HostDedicatedServer(max_players, port, password);
+            ModManager.HostDedicatedServer(max_players, port, password, OnStart);
 
-            RegisterCommands();
-            int default_command_count = CommandHandler.CommandHandlers.Count;
-
-            #region Plugins
-            PluginLoader.LoadPlugins("plugins");
-            PluginEventHandler.RegisterEvents();
-            int plugin_command_count = CommandHandler.CommandHandlers.Count - default_command_count;
-            #endregion
-            Log.Info(Defines.SERVER, $"Found {default_command_count + plugin_command_count} (Default: {default_command_count} / Plugins: {plugin_command_count}) commands.");
-
-            if(serverConfig.serverSettings.showInServerList) {
-                ServerlistPinger.Start();
-            }
 
             Console.CancelKeyPress += delegate {
                 new StopCommand().Process(new string[0]);
@@ -90,13 +78,34 @@ namespace AMP.DedicatedServer {
                     ProcessCommand(input);
 
                     Thread.Sleep(1);
-                }catch(Exception e) {
+                } catch(Exception e) {
                     Log.Err(e);
                 }
             }
 
             ServerlistPinger.Stop();
             PluginLoader.UnloadPlugins();
+        }
+
+        public static void OnStart(string message) {
+            if(message != null) {
+                Console.WriteLine($"Serverstart failed: {message}");
+                return;
+            }
+
+            RegisterCommands();
+            int default_command_count = CommandHandler.CommandHandlers.Count;
+
+            #region Plugins
+            PluginLoader.LoadPlugins("plugins");
+            PluginEventHandler.RegisterEvents();
+            int plugin_command_count = CommandHandler.CommandHandlers.Count - default_command_count;
+            #endregion
+            Log.Info(Defines.SERVER, $"Found {default_command_count + plugin_command_count} (Default: {default_command_count} / Plugins: {plugin_command_count}) commands.");
+
+            if(serverConfig.serverSettings.showInServerList) {
+                ServerlistPinger.Start();
+            }
         }
 
         public static void ProcessCommand(string input) {

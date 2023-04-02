@@ -9,8 +9,7 @@ namespace AMP.DedicatedServer.Functions {
         }
 
         public static void SpawnItem(string itemId, Vector3 position, Vector3 rotation) {
-            ModManager.serverInstance.OnPacket( ClientData.SERVER
-                                              , new ItemSpawnPacket( itemId: 0
+            ModManager.serverInstance.netamiteServer.SendToAll(new ItemSpawnPacket( itemId: 0
                                                                    , type: itemId
                                                                    , category: (byte) 0
                                                                    , 0

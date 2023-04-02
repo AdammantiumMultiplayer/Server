@@ -2,6 +2,7 @@
 using AMP.Logging;
 using AMP.Network.Data;
 using AMP.Network.Data.Sync;
+using Netamite.Server.Data;
 using System;
 
 namespace AMP.DedicatedServer {
@@ -23,7 +24,7 @@ namespace AMP.DedicatedServer {
         }
 
         #region Player Events
-        internal static void InvokeOnPlayerJoin(ClientData client) {
+        internal static void InvokeOnPlayerJoin(ClientInformation client) {
             foreach(AMP_Plugin plugin in PluginLoader.loadedPlugins) {
                 try {
                     plugin.OnPlayerJoin(client);
@@ -33,7 +34,7 @@ namespace AMP.DedicatedServer {
             }
         }
 
-        internal static void InvokeOnPlayerQuit(ClientData client) {
+        internal static void InvokeOnPlayerQuit(ClientInformation client) {
             foreach(AMP_Plugin plugin in PluginLoader.loadedPlugins) {
                 try {
                     plugin.OnPlayerQuit(client);
@@ -43,7 +44,7 @@ namespace AMP.DedicatedServer {
             }
         }
 
-        private static void InvokeOnPlayerKilled(PlayerNetworkData playerKilled, ClientData killer) {
+        private static void InvokeOnPlayerKilled(PlayerNetworkData playerKilled, ClientInformation killer) {
             foreach(AMP_Plugin plugin in PluginLoader.loadedPlugins) {
                 try {
                     plugin.OnPlayerKilled(playerKilled, killer);
@@ -56,7 +57,7 @@ namespace AMP.DedicatedServer {
 
 
         #region Item Events
-        private static void InvokeOnItemSpawned(ItemNetworkData itemData, ClientData clientSpawned) {
+        private static void InvokeOnItemSpawned(ItemNetworkData itemData, ClientInformation clientSpawned) {
             foreach(AMP_Plugin plugin in PluginLoader.loadedPlugins) {
                 try {
                     plugin.OnItemSpawned(itemData, clientSpawned);
@@ -66,7 +67,7 @@ namespace AMP.DedicatedServer {
             }
         }
 
-        private static void InvokeOnItemDespawned(ItemNetworkData itemData, ClientData clientDespawned) {
+        private static void InvokeOnItemDespawned(ItemNetworkData itemData, ClientInformation clientDespawned) {
             foreach(AMP_Plugin plugin in PluginLoader.loadedPlugins) {
                 try {
                     plugin.OnItemDespawned(itemData, clientDespawned);
@@ -76,7 +77,7 @@ namespace AMP.DedicatedServer {
             }
         }
 
-        private static void InvokeOnItemOwnerChanged(ItemNetworkData itemData, ClientData oldOwner, ClientData newOwner) {
+        private static void InvokeOnItemOwnerChanged(ItemNetworkData itemData, ClientInformation oldOwner, ClientInformation newOwner) {
             foreach(AMP_Plugin plugin in PluginLoader.loadedPlugins) {
                 try {
                     plugin.OnItemOwnerChanged(itemData, oldOwner, newOwner);
@@ -89,7 +90,7 @@ namespace AMP.DedicatedServer {
 
 
         #region Creature Events
-        private static void InvokeOnCreatureSpawned(CreatureNetworkData creatureData, ClientData clientSpawned) {
+        private static void InvokeOnCreatureSpawned(CreatureNetworkData creatureData, ClientInformation clientSpawned) {
             foreach(AMP_Plugin plugin in PluginLoader.loadedPlugins) {
                 try {
                     plugin.OnCreatureSpawned(creatureData, clientSpawned);
@@ -99,7 +100,7 @@ namespace AMP.DedicatedServer {
             }
         }
 
-        private static void InvokeOnCreatureDespawned(CreatureNetworkData creatureData, ClientData clientDespawned) {
+        private static void InvokeOnCreatureDespawned(CreatureNetworkData creatureData, ClientInformation clientDespawned) {
             foreach(AMP_Plugin plugin in PluginLoader.loadedPlugins) {
                 try {
                     plugin.OnCreatureDespawned(creatureData, clientDespawned);
@@ -109,7 +110,7 @@ namespace AMP.DedicatedServer {
             }
         }
 
-        private static void InvokeOnCreatureKilled(CreatureNetworkData creatureData, ClientData killer) {
+        private static void InvokeOnCreatureKilled(CreatureNetworkData creatureData, ClientInformation killer) {
             foreach(AMP_Plugin plugin in PluginLoader.loadedPlugins) {
                 try {
                     plugin.OnCreatureKilled(creatureData, killer);
@@ -119,7 +120,7 @@ namespace AMP.DedicatedServer {
             }
         }
 
-        private static void InvokeOnCreatureOwnerChanged(CreatureNetworkData creatureData, ClientData oldOwner, ClientData newOwner) {
+        private static void InvokeOnCreatureOwnerChanged(CreatureNetworkData creatureData, ClientInformation oldOwner, ClientInformation newOwner) {
             foreach(AMP_Plugin plugin in PluginLoader.loadedPlugins) {
                 try {
                     plugin.OnCreatureOwnerChanged(creatureData, oldOwner, newOwner);
