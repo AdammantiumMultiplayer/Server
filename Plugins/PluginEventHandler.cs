@@ -1,6 +1,5 @@
 ﻿using AMP.Events;
 using AMP.Logging;
-using AMP.Network.Data;
 using AMP.Network.Data.Sync;
 using Netamite.Server.Data;
 using System;

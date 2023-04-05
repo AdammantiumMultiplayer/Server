@@ -1,5 +1,4 @@
-﻿using AMP.Network.Data;
-using AMP.Network.Packets.Implementation;
+﻿using AMP.Network.Packets.Implementation;
 using UnityEngine;
 
 namespace AMP.DedicatedServer.Functions {

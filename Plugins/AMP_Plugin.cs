@@ -1,5 +1,4 @@
-﻿using AMP.Network.Data;
-using AMP.Network.Data.Sync;
+﻿using AMP.Network.Data.Sync;
 using Netamite.Server.Data;
 
 namespace AMP.DedicatedServer {
