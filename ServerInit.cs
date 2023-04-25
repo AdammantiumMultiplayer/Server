@@ -29,8 +29,8 @@ namespace AMP.DedicatedServer {
                       "\t\t\t  ██╔══██║██║╚██╔╝██║██╔═══╝  \r\n" +
                       "\t\t\t  ██║  ██║██║ ╚═╝ ██║██║      \r\n" +
                       "\t\t\t  ╚═╝  ╚═╝╚═╝     ╚═╝╚═╝      \r\n" +
-                     $"\t\t\t Server Version: { Data.Defines.SERVER_VERSION }\r\n" +
-                     $"\t\t\t    Mod Version: {      Defines.MOD_VERSION    }\r\n" +
+                     $"\t\t\t Server Version: { Data.Defines.SERVER_VERSION   }\r\n" +
+                     $"\t\t\t    Mod Version: {      Defines.FULL_MOD_VERSION }\r\n" +
                       ".__________________________________________________________|_._._._._._._._._,\r\n" +
                       " ▜█████████████████████████████████████████████████████████|_X_X_X_X_X_X_X_X_|\r\n" +
                       "                                                           '\r\n" +
