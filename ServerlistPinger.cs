@@ -12,18 +12,19 @@ namespace AMP.DedicatedServer {
 
         private static Thread pinger;
 
-        private static int last_port = 0;
+        private static int check_count = 0;
         private static string last_map = "";
         private static string last_mode = "";
         private static int last_playercount = 0;
         internal static bool ShouldUpdateMasterServer()
         {
-            bool ShouldUpdate = ModManager.serverInstance.connectedClients != last_playercount || ModManager.serverInstance.currentLevel != last_map || ServerInit.serverConfig.serverSettings.port != last_port || ModManager.serverInstance.currentMode != last_mode;
+            check_count++;
+            bool ShouldUpdate = ModManager.serverInstance.connectedClients != last_playercount || ModManager.serverInstance.currentLevel != last_map || ModManager.serverInstance.currentMode != last_mode || check_count > 90;
             if (ShouldUpdate) {
                 last_playercount = ModManager.serverInstance.connectedClients;
-                last_port = ServerInit.serverConfig.serverSettings.port;
                 last_map = ModManager.serverInstance.currentLevel;
                 last_mode = ModManager.serverInstance.currentMode;
+                check_count = 0;
             }
 
             return ShouldUpdate;
