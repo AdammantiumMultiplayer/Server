@@ -1,6 +1,7 @@
 ﻿using AMP.Data;
 using AMP.Logging;
 using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Net;
 using System.Threading;
@@ -13,21 +14,20 @@ namespace AMP.DedicatedServer {
         private static Thread pinger;
 
         private static int check_update = 500;
-        private static int force_update = 55 / (check_update / 1000);
+        private static int force_update = 55;
 
-        private static int check_count = 0;
         private static string last_map = "";
         private static string last_mode = "";
         private static int last_playercount = 0;
+        private static DateTime last_update = DateTime.Now;
         internal static bool ShouldUpdateMasterServer()
         {
-            check_count++;
-            bool ShouldUpdate = ModManager.serverInstance.connectedClients != last_playercount || ModManager.serverInstance.currentLevel != last_map || ModManager.serverInstance.currentMode != last_mode || check_count > force_update;
+            bool ShouldUpdate = ModManager.serverInstance.connectedClients != last_playercount || ModManager.serverInstance.currentLevel != last_map || ModManager.serverInstance.currentMode != last_mode || DateTime.Now.Subtract(last_update).Seconds >= 55;
             if (ShouldUpdate) {
                 last_playercount = ModManager.serverInstance.connectedClients;
                 last_map = ModManager.serverInstance.currentLevel;
                 last_mode = ModManager.serverInstance.currentMode;
-                check_count = 0;
+                last_update = DateTime.Now;
             }
 
             return ShouldUpdate;
