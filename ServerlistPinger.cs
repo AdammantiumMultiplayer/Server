@@ -12,6 +12,9 @@ namespace AMP.DedicatedServer {
 
         private static Thread pinger;
 
+        private static int check_update = 500;
+        private static int force_update = 55 / (check_update / 1000);
+
         private static int check_count = 0;
         private static string last_map = "";
         private static string last_mode = "";
@@ -19,7 +22,7 @@ namespace AMP.DedicatedServer {
         internal static bool ShouldUpdateMasterServer()
         {
             check_count++;
-            bool ShouldUpdate = ModManager.serverInstance.connectedClients != last_playercount || ModManager.serverInstance.currentLevel != last_map || ModManager.serverInstance.currentMode != last_mode || check_count > 90;
+            bool ShouldUpdate = ModManager.serverInstance.connectedClients != last_playercount || ModManager.serverInstance.currentLevel != last_map || ModManager.serverInstance.currentMode != last_mode || check_count > force_update;
             if (ShouldUpdate) {
                 last_playercount = ModManager.serverInstance.connectedClients;
                 last_map = ModManager.serverInstance.currentLevel;
@@ -69,7 +72,7 @@ namespace AMP.DedicatedServer {
             ShouldUpdateMasterServer();
             pinger = new Thread(new ThreadStart(() => {
                 while(ModManager.serverInstance != null) {
-                    Thread.Sleep(500);
+                    Thread.Sleep(check_update);
                     if (ShouldUpdateMasterServer()) {
                         httpWebRequest = (HttpWebRequest)WebRequest.Create($"{address}/ping.php");
                         httpWebRequest.ContentType = "application/json; charset=utf-8";
