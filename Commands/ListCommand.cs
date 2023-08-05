@@ -9,7 +9,7 @@ namespace AMP.DedicatedServer.Commands {
         public override string Process(string[] args) {
             Log.Line('=', $"Commands ({ CommandHandlers.Count })");
             foreach(CommandHandler command in CommandHandlers) {
-                Log.Info($"\x1b[0m{ command.ALIASES[0].PadRight(10) }\x1b[0m - { command.HELP }");
+                Log.Info($"{ command.ALIASES[0].PadRight(10) } - { command.HELP }");
             }
             Log.Line('=');
 
