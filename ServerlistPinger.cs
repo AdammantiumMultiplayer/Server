@@ -19,30 +19,20 @@ namespace AMP.DedicatedServer {
         private static string last_map = "";
         private static string last_mode = "";
         private static int last_playercount = 0;
-        private static bool sending_update = false;
         private static DateTime last_update = DateTime.Now;
         internal static bool ShouldUpdateMasterServer()
         {
-            bool ShouldUpdate = (ModManager.serverInstance.connectedClients != last_playercount || ModManager.serverInstance.currentLevel != last_map || ModManager.serverInstance.currentMode != last_mode || DateTime.Now.Subtract(last_update).Seconds >= force_update) && !sending_update;
-
-            if (ShouldUpdate)
-            {
-                sending_update = true;
-            }
+            bool ShouldUpdate = ModManager.serverInstance.connectedClients != last_playercount || ModManager.serverInstance.currentLevel != last_map || ModManager.serverInstance.currentMode != last_mode || DateTime.Now.Subtract(last_update).Seconds >= force_update;
 
             return ShouldUpdate;
         }
 
-        internal static void UpdateData(bool success)
+        internal static void UpdateData()
         {
-            if (success) {
-                last_playercount = ModManager.serverInstance.connectedClients;
-                last_map = ModManager.serverInstance.currentLevel;
-                last_mode = ModManager.serverInstance.currentMode;
-                last_update = DateTime.Now;
-            }
-
-            sending_update = false;
+            last_playercount = ModManager.serverInstance.connectedClients;
+            last_map = ModManager.serverInstance.currentLevel;
+            last_mode = ModManager.serverInstance.currentMode;
+            last_update = DateTime.Now;
         }
 
         internal static void Start() {
@@ -81,7 +71,7 @@ namespace AMP.DedicatedServer {
                 }
             }
 
-            UpdateData(true);
+            UpdateData();
             pinger = new Thread(new ThreadStart(() => {
                 while(ModManager.serverInstance != null) {
                     Thread.Sleep(check_update);
@@ -110,10 +100,11 @@ namespace AMP.DedicatedServer {
                             {
                                 var result = streamReader.ReadToEnd();
                                 bool success = result.Contains("true");
-                                if (!success) {
+                                if (success) {
+                                    UpdateData();
+                                } else {
                                     Log.Err("Serverlist update failed: " + result);
                                 }
-                                UpdateData(success);
                             }
                         }
                     }
