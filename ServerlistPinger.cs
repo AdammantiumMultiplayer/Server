@@ -1,6 +1,7 @@
 ﻿using AMP.Data;
 using AMP.Logging;
 using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Net;
 using System.Threading;
@@ -11,6 +12,28 @@ namespace AMP.DedicatedServer {
         private static string address = "https://" + ServerInit.serverConfig.serverSettings.masterServerUrl + "/ping";
 
         private static Thread pinger;
+
+        private static int check_update = 500;
+        private static int force_update = 55;
+
+        private static string last_map = "";
+        private static string last_mode = "";
+        private static int last_playercount = 0;
+        private static DateTime last_update = DateTime.Now;
+        internal static bool ShouldUpdateMasterServer()
+        {
+            bool ShouldUpdate = ModManager.serverInstance.connectedClients != last_playercount || ModManager.serverInstance.currentLevel != last_map || ModManager.serverInstance.currentMode != last_mode || DateTime.Now.Subtract(last_update).Seconds >= force_update;
+
+            return ShouldUpdate;
+        }
+
+        internal static void UpdateData()
+        {
+            last_playercount = ModManager.serverInstance.connectedClients;
+            last_map = ModManager.serverInstance.currentLevel;
+            last_mode = ModManager.serverInstance.currentMode;
+            last_update = DateTime.Now;
+        }
 
         internal static void Start() {
             var httpWebRequest = (HttpWebRequest) WebRequest.Create($"{address}/register.php");
@@ -48,34 +71,40 @@ namespace AMP.DedicatedServer {
                 }
             }
 
+            UpdateData();
             pinger = new Thread(new ThreadStart(() => {
                 while(ModManager.serverInstance != null) {
-                    Thread.Sleep(60 * 1000);
+                    Thread.Sleep(check_update);
+                    if (ShouldUpdateMasterServer()) {
+                        httpWebRequest = (HttpWebRequest)WebRequest.Create($"{address}/ping.php");
+                        httpWebRequest.ContentType = "application/json; charset=utf-8";
+                        httpWebRequest.Method = "POST";
+                        httpWebRequest.Accept = "application/json; charset=utf-8";
 
-                    httpWebRequest = (HttpWebRequest) WebRequest.Create($"{address}/ping.php");
-                    httpWebRequest.ContentType = "application/json; charset=utf-8";
-                    httpWebRequest.Method = "POST";
-                    httpWebRequest.Accept = "application/json; charset=utf-8";
+                        using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+                        {
+                            string loginjson = JsonConvert.SerializeObject(new
+                            {
+                                port = ServerInit.serverConfig.serverSettings.port,
+                                players = ModManager.serverInstance.connectedClients,
+                                map = ModManager.serverInstance.currentLevel,
+                                mode = ModManager.serverInstance.currentMode
+                            });
 
-                    using(var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream())) {
-                        string loginjson = JsonConvert.SerializeObject(new {
-                            port = ServerInit.serverConfig.serverSettings.port,
-                            players = ModManager.serverInstance.connectedClients,
-                            map = ModManager.serverInstance.currentLevel,
-                            mode = ModManager.serverInstance.currentMode
-                        });
+                            streamWriter.Write(loginjson);
+                            streamWriter.Flush();
+                            streamWriter.Close();
 
-                        streamWriter.Write(loginjson);
-                        streamWriter.Flush();
-                        streamWriter.Close();
-
-                        var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-                        using(var streamReader = new StreamReader(httpResponse.GetResponseStream())) {
-                            var result = streamReader.ReadToEnd();
-                            if(result.Contains("true")) {
-                                
-                            } else {
-                                Log.Err("Serverlist update failed: " + result);
+                            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                            {
+                                var result = streamReader.ReadToEnd();
+                                bool success = result.Contains("true");
+                                if (success) {
+                                    UpdateData();
+                                } else {
+                                    Log.Err("Serverlist update failed: " + result);
+                                }
                             }
                         }
                     }
