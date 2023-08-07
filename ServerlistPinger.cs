@@ -20,19 +20,20 @@ namespace AMP.DedicatedServer {
         private static string last_mode = "";
         private static int last_playercount = 0;
         private static DateTime last_update = DateTime.Now;
-        internal static bool ShouldUpdateMasterServer()
-        {
-            bool ShouldUpdate = ModManager.serverInstance.connectedClients != last_playercount || ModManager.serverInstance.currentLevel != last_map || ModManager.serverInstance.currentMode != last_mode || DateTime.Now.Subtract(last_update).Seconds >= force_update;
+        internal static bool ShouldUpdateMasterServer() {
+            bool ShouldUpdate = ModManager.serverInstance.connectedClients      != last_playercount 
+                             || ModManager.serverInstance.currentLevel          != last_map
+                             || ModManager.serverInstance.currentMode           != last_mode
+                             || DateTime.Now.Subtract(last_update).TotalSeconds >= force_update;
 
             return ShouldUpdate;
         }
 
-        internal static void UpdateData()
-        {
+        internal static void UpdateData() {
             last_playercount = ModManager.serverInstance.connectedClients;
-            last_map = ModManager.serverInstance.currentLevel;
-            last_mode = ModManager.serverInstance.currentMode;
-            last_update = DateTime.Now;
+            last_map         = ModManager.serverInstance.currentLevel;
+            last_mode        = ModManager.serverInstance.currentMode;
+            last_update      = DateTime.Now;
         }
 
         internal static void Start() {
@@ -81,10 +82,8 @@ namespace AMP.DedicatedServer {
                         httpWebRequest.Method = "POST";
                         httpWebRequest.Accept = "application/json; charset=utf-8";
 
-                        using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
-                        {
-                            string loginjson = JsonConvert.SerializeObject(new
-                            {
+                        using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream())) {
+                            string loginjson = JsonConvert.SerializeObject(new {
                                 port = ServerInit.serverConfig.serverSettings.port,
                                 players = ModManager.serverInstance.connectedClients,
                                 map = ModManager.serverInstance.currentLevel,
@@ -96,8 +95,7 @@ namespace AMP.DedicatedServer {
                             streamWriter.Close();
 
                             var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-                            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-                            {
+                            using (var streamReader = new StreamReader(httpResponse.GetResponseStream())) {
                                 var result = streamReader.ReadToEnd();
                                 bool success = result.Contains("true");
                                 if (success) {
