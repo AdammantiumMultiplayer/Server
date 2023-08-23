@@ -3,6 +3,8 @@ using AMP.Logging;
 using AMP.Network.Data.Sync;
 using Netamite.Server.Data;
 using System;
+using ThunderRoad;
+using static ThunderRoad.AI.Action.IsGrabbing;
 
 namespace AMP.DedicatedServer {
     internal class PluginEventHandler {
@@ -11,6 +13,7 @@ namespace AMP.DedicatedServer {
             ServerEvents.OnPlayerJoin           += InvokeOnPlayerJoin;
             ServerEvents.OnPlayerQuit           += InvokeOnPlayerQuit;
             ServerEvents.OnPlayerKilled         += InvokeOnPlayerKilled;
+            ServerEvents.OnPlayerDamaged        += InvokeOnPlayerDamaged;
 
             ServerEvents.OnItemSpawned          += InvokeOnItemSpawned;
             ServerEvents.OnItemDespawned        += InvokeOnItemDespawned;
@@ -20,6 +23,7 @@ namespace AMP.DedicatedServer {
             ServerEvents.OnCreatureDespawned    += InvokeOnCreatureDespawned;
             ServerEvents.OnCreatureKilled       += InvokeOnCreatureKilled;
             ServerEvents.OnCreatureOwnerChanged += InvokeOnCreatureOwnerChanged;
+            ServerEvents.OnCreatureDamaged      += InvokeOnCreatureDamaged;
         }
 
         #region Player Events
@@ -47,6 +51,16 @@ namespace AMP.DedicatedServer {
             foreach(AMP_Plugin plugin in PluginLoader.loadedPlugins) {
                 try {
                     plugin.OnPlayerKilled(playerKilled, killer);
+                } catch(Exception e) {
+                    Log.Err(e);
+                }
+            }
+        }
+
+        private static void InvokeOnPlayerDamaged(ClientInformation player, float damage, ClientInformation damager) {
+            foreach(AMP_Plugin plugin in PluginLoader.loadedPlugins) {
+                try {
+                    plugin.OnPlayerDamaged(player, damage, damager);
                 } catch(Exception e) {
                     Log.Err(e);
                 }
@@ -128,6 +142,17 @@ namespace AMP.DedicatedServer {
                 }
             }
         }
+
+        private static void InvokeOnCreatureDamaged(CreatureNetworkData creature, float damage, ClientInformation damager) {
+            foreach(AMP_Plugin plugin in PluginLoader.loadedPlugins) {
+                try {
+                    plugin.OnCreatureDamaged(creature, damage, damager);
+                } catch(Exception e) {
+                    Log.Err(e);
+                }
+            }
+        }
+
         #endregion
     }
 }
