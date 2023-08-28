@@ -1,4 +1,5 @@
-﻿using AMP.Network.Data;
+﻿using AMP.DedicatedServer.Plugins;
+using AMP.Network.Data;
 using AMP.Network.Data.Sync;
 
 namespace AMP.DedicatedServer {
@@ -24,5 +25,9 @@ namespace AMP.DedicatedServer {
         public virtual void OnCreatureKilled(CreatureNetworkData creatureData, ClientData killer) { }
         public virtual void OnCreatureOwnerChanged(CreatureNetworkData creatureData, ClientData oldOwner, ClientData newOwner) { }
         public virtual void OnCreatureDamaged(CreatureNetworkData player, float damage, ClientData damager) { }
+
+        public PluginConfig GetConfig() {
+            return PluginConfigLoader.GetConfig(this);    
+        }
     }
 }

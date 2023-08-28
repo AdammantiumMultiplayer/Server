@@ -1,4 +1,5 @@
 ﻿using AMP.DedicatedServer.Data;
+using AMP.DedicatedServer.Plugins;
 using AMP.Logging;
 using System;
 using System.Collections.Generic;
@@ -30,23 +31,35 @@ namespace AMP.DedicatedServer {
                 foreach(Type type in types) {
                     if(type.BaseType == typeof(AMP_Plugin)) {
                         plugin = (AMP_Plugin) Activator.CreateInstance(type);
-
-                        try {
-                            plugin.OnStart();
-                        } catch(Exception e) {
-                            Log.Err(e);
-                        }
-
-                        loadedPlugins.Add(plugin);
                     }
                 }
                 if(plugin != null) {
+                    Type pluginConfigType = null;
                     foreach(Type type in types) {
                         if(type.BaseType == typeof(CommandHandler)) {
                             CommandHandler handler = (CommandHandler) Activator.CreateInstance(type);
                             CommandHandler.RegisterCommandHandler(handler);
                         }
+                        if(type.BaseType == typeof(PluginConfig)) {
+                            pluginConfigType = type;
+                        }
                     }
+
+                    Log.Info(Defines.PLUGIN_MANAGER, $"Loading plugin {plugin.NAME} ({plugin.VERSION}) by {plugin.AUTHOR}");
+
+                    if(pluginConfigType != null) {
+                        PluginConfigLoader.LoadConfig(plugin, (PluginConfig) Activator.CreateInstance(pluginConfigType));
+                        Log.Info(Defines.PLUGIN_MANAGER, $"Loaded config for {plugin.NAME}");
+                    }
+
+                    try {
+                        plugin.OnStart();
+                    } catch(Exception e) {
+                        Log.Err(e);
+                    }
+
+                    loadedPlugins.Add(plugin);
+
                     Log.Info(Defines.PLUGIN_MANAGER, $"Loaded plugin {plugin.NAME} ({plugin.VERSION}) by {plugin.AUTHOR}");
                 }
             }

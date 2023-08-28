@@ -87,6 +87,8 @@
     <Compile Include="Commands\PluginCommand.cs" />
     <Compile Include="Commands\StopCommand.cs" />
     <Compile Include="Commands\HelpCommand.cs" />
+    <Compile Include="Plugins\PluginConfigLoader.cs" />
+    <Compile Include="Plugins\PluginConfig.cs" />
     <Compile Include="ServerConfig.cs" />
     <Compile Include="Data\Defines.cs" />
     <Compile Include="Functions\Item.cs" />
