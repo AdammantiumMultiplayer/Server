@@ -88,6 +88,10 @@ namespace AMP.DedicatedServer {
                         httpWebRequest.Method = "POST";
                         httpWebRequest.Accept = "application/json; charset=utf-8";
 
+                        if(ServerInit.serverConfig.serverSettings.ignoreCertificateErrors) {
+                            httpWebRequest.ServerCertificateValidationCallback = (message, certificate, chain, sslPolicyErrors) => true;
+                        }
+
                         using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream())) {
                             string loginjson = JsonConvert.SerializeObject(new {
                                 port = ServerInit.serverConfig.serverSettings.port,
@@ -126,6 +130,10 @@ namespace AMP.DedicatedServer {
                     httpWebRequest.ContentType = "application/json; charset=utf-8";
                     httpWebRequest.Method = "POST";
                     httpWebRequest.Accept = "application/json; charset=utf-8";
+
+                    if(ServerInit.serverConfig.serverSettings.ignoreCertificateErrors) {
+                        httpWebRequest.ServerCertificateValidationCallback = (message, certificate, chain, sslPolicyErrors) => true;
+                    }
 
                     using(var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream())) {
                         string loginjson = JsonConvert.SerializeObject(new {
