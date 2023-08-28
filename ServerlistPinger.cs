@@ -1,9 +1,11 @@
 ﻿using AMP.Data;
 using AMP.Logging;
+using AMP.Network.Server;
 using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Threading;
 
 namespace AMP.DedicatedServer {
@@ -41,6 +43,10 @@ namespace AMP.DedicatedServer {
             httpWebRequest.ContentType = "application/json; charset=utf-8";
             httpWebRequest.Method = "POST";
             httpWebRequest.Accept = "application/json; charset=utf-8";
+
+            if(ServerInit.serverConfig.serverSettings.ignoreCertificateErrors) {
+                httpWebRequest.ServerCertificateValidationCallback = (message, certificate, chain, sslPolicyErrors) => true;
+            }
 
             using(var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream())) {
                 string loginjson = JsonConvert.SerializeObject(new {

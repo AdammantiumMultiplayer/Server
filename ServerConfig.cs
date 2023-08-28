@@ -24,6 +24,7 @@ namespace AMP.DedicatedServer {
 
             public string masterServerUrl = "bns.devforce.de";
             public bool showInServerList = false;
+            public bool ignoreCertificateErrors = false;
             public string servername = "Unnamed Server";
             public string serverdescription = "No description";
         }
