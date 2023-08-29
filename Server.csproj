@@ -57,6 +57,12 @@
     <Reference Include="Netamite">
       <HintPath>..\..\Netamite\Netamite.Base\bin\Debug\Netamite.dll</HintPath>
     </Reference>
+    <Reference Include="Netamite.Steam">
+      <HintPath>..\..\Netamite\Netamite.Steam\bin\Debug\Netamite.Steam.dll</HintPath>
+    </Reference>
+    <Reference Include="Netamite.Unity">
+      <HintPath>..\..\Netamite\Netamite.Unity\bin\Debug\Netamite.Unity.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Libs\Newtonsoft.Json.dll</HintPath>
@@ -93,7 +99,6 @@
     <Compile Include="Data\Defines.cs" />
     <Compile Include="Functions\Item.cs" />
     <Compile Include="Plugins\AMP_Plugin.cs" />
-    <Compile Include="Plugins\PluginEventHandler.cs" />
     <Compile Include="Plugins\PluginLoader.cs" />
     <Compile Include="ServerInit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

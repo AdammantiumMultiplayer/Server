@@ -1,5 +1,7 @@
 ﻿using AMP.DedicatedServer.Data;
+using AMP.Events;
 using AMP.Logging;
+using System;
 
 namespace AMP.DedicatedServer.Commands {
     internal class PluginCommand : CommandHandler {
@@ -11,7 +13,7 @@ namespace AMP.DedicatedServer.Commands {
             Log.Info(Defines.PLUGIN_MANAGER, $"{PluginLoader.loadedPlugins.Count} Plugin(s) loaded.");
 
             foreach(AMP_Plugin plugin in PluginLoader.loadedPlugins) {
-                Log.Info(Defines.PLUGIN_MANAGER, $"- {plugin.NAME} by {plugin.AUTHOR} (v{plugin.VERSION})");
+                Log.Info(Defines.PLUGIN_MANAGER, $"└─ {plugin.NAME} (v{plugin.VERSION}) - {plugin.AUTHOR}");
             }
 
             return null;

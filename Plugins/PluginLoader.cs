@@ -19,6 +19,7 @@ namespace AMP.DedicatedServer {
             foreach(string file in files) {
                 if(file.EndsWith(".dll")) LoadPlugin(file);
             }
+            Log.Info("");
         }
 
         private static void LoadPlugin(string file) {
@@ -31,9 +32,14 @@ namespace AMP.DedicatedServer {
                 foreach(Type type in types) {
                     if(type.BaseType == typeof(AMP_Plugin)) {
                         plugin = (AMP_Plugin) Activator.CreateInstance(type);
+                        break;
                     }
                 }
                 if(plugin != null) {
+                    Log.Info("");
+                    Log.Info(Defines.PLUGIN_MANAGER, $"{plugin.NAME} ({plugin.VERSION}) by {plugin.AUTHOR}");
+                    Log.Info(Defines.PLUGIN_MANAGER, $"└─ Loading...");
+
                     Type pluginConfigType = null;
                     foreach(Type type in types) {
                         if(type.BaseType == typeof(CommandHandler)) {
@@ -45,11 +51,9 @@ namespace AMP.DedicatedServer {
                         }
                     }
 
-                    Log.Info(Defines.PLUGIN_MANAGER, $"Loading plugin {plugin.NAME} ({plugin.VERSION}) by {plugin.AUTHOR}");
-
                     if(pluginConfigType != null) {
                         PluginConfigLoader.LoadConfig(plugin, (PluginConfig) Activator.CreateInstance(pluginConfigType));
-                        Log.Info(Defines.PLUGIN_MANAGER, $"Loaded config for {plugin.NAME}");
+                        Log.Info(Defines.PLUGIN_MANAGER, $"└─ Loaded config");
                     }
 
                     try {
@@ -60,7 +64,7 @@ namespace AMP.DedicatedServer {
 
                     loadedPlugins.Add(plugin);
 
-                    Log.Info(Defines.PLUGIN_MANAGER, $"Loaded plugin {plugin.NAME} ({plugin.VERSION}) by {plugin.AUTHOR}");
+                    Log.Info(Defines.PLUGIN_MANAGER, $"└─ Plugin fully loaded.");
                 }
             }
         }

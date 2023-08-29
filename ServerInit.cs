@@ -98,7 +98,7 @@ namespace AMP.DedicatedServer {
 
             #region Plugins
             PluginLoader.LoadPlugins("plugins");
-            PluginEventHandler.RegisterEvents();
+
             int plugin_command_count = CommandHandler.CommandHandlers.Count - default_command_count;
             #endregion
             Log.Info(Defines.SERVER, $"Found {default_command_count + plugin_command_count} (Default: {default_command_count} / Plugins: {plugin_command_count}) commands.");
