@@ -1,7 +1,5 @@
 ﻿using AMP.DedicatedServer.Data;
-using AMP.Events;
 using AMP.Logging;
-using System;
 
 namespace AMP.DedicatedServer.Commands {
     internal class PluginCommand : CommandHandler {

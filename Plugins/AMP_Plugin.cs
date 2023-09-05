@@ -1,6 +1,4 @@
 ﻿using AMP.DedicatedServer.Plugins;
-using AMP.Network.Data;
-using AMP.Network.Data.Sync;
 
 namespace AMP.DedicatedServer {
     public class AMP_Plugin {

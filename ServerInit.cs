@@ -60,6 +60,7 @@ namespace AMP.DedicatedServer {
                 }
             }
 
+            ModManager.SetupNetamite();
             ModManager.HostDedicatedServer(max_players, port, password, OnStart);
 
 
