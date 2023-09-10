@@ -9,7 +9,7 @@ namespace AMP.DedicatedServer.Commands {
 
         public override string Process(string[] args) {
             if(args.Length == 4) {
-                Item.SpawnItem(args[0], new Vector3(float.Parse(args[1]), float.Parse(args[2]), float.Parse(args[3])));
+                ItemUtil.SpawnItem(args[0], new Vector3(float.Parse(args[1]), float.Parse(args[2]), float.Parse(args[3])));
 
                 return $"Spawned Item: {args[0]} at {args[1]} {args[2]} {args[3]}.";
             } else {

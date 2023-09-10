@@ -20,6 +20,8 @@ namespace AMP.DedicatedServer {
                 if(file.EndsWith(".dll")) LoadPlugin(file);
             }
             Log.Info("");
+            Log.Info(Defines.PLUGIN_MANAGER, ">> Loaded " + loadedPlugins.Count + " plugins.");
+            Log.Info("");
         }
 
         private static void LoadPlugin(string file) {

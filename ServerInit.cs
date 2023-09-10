@@ -102,7 +102,7 @@ namespace AMP.DedicatedServer {
 
             int plugin_command_count = CommandHandler.CommandHandlers.Count - default_command_count;
             #endregion
-            Log.Info(Defines.SERVER, $"Found {default_command_count + plugin_command_count} (Default: {default_command_count} / Plugins: {plugin_command_count}) commands.");
+            Log.Info(Defines.SERVER, $"Registered {default_command_count + plugin_command_count} commands (Default: {default_command_count} / Plugins: {plugin_command_count}).");
 
             if(serverConfig.serverSettings.showInServerList) {
                 ServerlistPinger.Start();

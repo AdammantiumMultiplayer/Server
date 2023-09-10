@@ -97,7 +97,7 @@
     <Compile Include="Plugins\PluginConfig.cs" />
     <Compile Include="ServerConfig.cs" />
     <Compile Include="Data\Defines.cs" />
-    <Compile Include="Functions\Item.cs" />
+    <Compile Include="Functions\ItemUtil.cs" />
     <Compile Include="Plugins\AMP_Plugin.cs" />
     <Compile Include="Plugins\PluginLoader.cs" />
     <Compile Include="ServerInit.cs" />
