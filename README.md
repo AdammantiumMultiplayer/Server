@@ -17,9 +17,18 @@ __You can also use the [ServerManager](https://github.com/flexhd41/AMP-server-ma
 - `AMP_Server.exe`
 - `AMP_Server.pdb`
 - `Newtonsoft.Json.dll`
+- `Unity.ResourceManager.dll`
 - `UnityEngine.CoreModule.dll`
+- `UnityEngine.PhysicsModule.dll`
 - `UnityEngine.SharedInternalsModule.dll`
 - Optional: `plugins` folder
+#### Netamite
+- `Netamite.dll`
+- `Netamite.pdb`
+- `Netamite.Steam.dll`
+- `Netamite.Steam.pdb`
+- `Netamite.Unity.dll`
+- `Netamite.Unity.pdb`
 #### AMP-Mod
 - `AMP.dll`
 - `AMP.pdb`  
@@ -44,6 +53,7 @@ Check that the Mod Version inside of the console is the one you want.
 When you start the server for the first time a `server.json` file will be generated. Inside of there you can configure the server how you want.
 > ![image](https://user-images.githubusercontent.com/38858318/234640612-5c5df4be-260e-4c5a-8e8d-508a0d69e1ff.png)  
 
+#### **serverSettings**
 | Tag | Description | Value Type | Default Value |
 | --- | --- | --- | --- |
 | `port` | The port you wanna use, it will use UDP & TCP | `number` | 26950 |
@@ -55,6 +65,10 @@ When you start the server for the first time a `server.json` file will be genera
 | `showInServerList` | Annouces the server to the serverlist at the address specified in `masterServerUrl` | `boolean` | false |
 | `servername` | Name to show in the serverlist | `text` | Unnamed Server |
 | `serverdescription` | Description to show in the serverlist | `text` | No description |
+
+#### **hostingSettings**
+| Tag | Description | Value Type | Default Value |
+| --- | --- | --- | --- |
 | `pvpEnable` | Toggles PdP (Player damage isnt reliable atm, so its only Player damage Player instead of versus) | `boolean` | true |
 | `pvpDamageMultiplier` | Damage Multiplier factor to other players | `float` | 0.2 |
 | `allowMapChange` | Allows connected players to change the map, otherwise they get kicked | `boolean` | true |
