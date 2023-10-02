@@ -17,7 +17,7 @@ namespace AMP.DedicatedServer {
             Log.loggerType = Log.LoggerType.CONSOLE;
 
             Console.OutputEncoding = System.Text.Encoding.UTF8;
-            
+
             Log.Info("");
             Log.Info( "<color=#FF8C00>" +
                       ",_._._._._._._._._|__________________________________________________________.\r\n" +
