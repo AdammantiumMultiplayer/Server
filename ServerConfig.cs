@@ -16,8 +16,8 @@ namespace AMP.DedicatedServer {
         public class ServerSettings {
             public int port = 26950;
 
-            public string map = "Arena";
-            public string mode = "Sandbox";
+            public string map = "Home";
+            public string mode = "Default";
 
             public int max_players = 10;
             public string password = "";
