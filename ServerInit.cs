@@ -4,14 +4,18 @@ using AMP.Logging;
 using AMP.Network.Server;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using System.Threading;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace AMP.DedicatedServer {
     public class ServerInit {
         internal static ServerConfig serverConfig;
 
         public static int port = 13698;
+
+        internal static string serverIcon = "";
 
         static void Main(string[] args) {
             Log.loggerType = Log.LoggerType.CONSOLE;
@@ -58,6 +62,13 @@ namespace AMP.DedicatedServer {
                         password = args[2];
                     }
                 }
+            }
+
+            if(File.Exists("icon.jpg")) {
+                byte[] imageArray = File.ReadAllBytes("icon.jpg");
+                string base64ImageRepresentation = Convert.ToBase64String(imageArray);
+                serverIcon = base64ImageRepresentation;
+                //Log.Debug("Found custom server icon. Make sure its a jpg and 64x64.");
             }
 
             ModManager.SetupNetamite();

@@ -51,7 +51,7 @@ namespace AMP.DedicatedServer {
                     port        = ServerInit.serverConfig.serverSettings.port,
                     name        = ServerInit.serverConfig.serverSettings.servername,
                     description = ServerInit.serverConfig.serverSettings.serverdescription,
-                    icon        = "",
+                    icon        = ServerInit.serverIcon,
                     max_players = ServerInit.serverConfig.serverSettings.max_players,
                     map         = ModManager.serverInstance.currentLevel,
                     mode        = ModManager.serverInstance.currentMode,
