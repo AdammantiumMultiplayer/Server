@@ -1,4 +1,5 @@
-﻿using AMP.Data;
+﻿using AMP.Compression;
+using AMP.Data;
 using AMP.DedicatedServer.Commands;
 using AMP.Logging;
 using AMP.Network.Server;
@@ -7,7 +8,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Threading;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace AMP.DedicatedServer {
     public class ServerInit {

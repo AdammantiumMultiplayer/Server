@@ -14,6 +14,7 @@ namespace AMP.DedicatedServer.Functions {
                                                                    , 0
                                                                    , position
                                                                    , rotation
+                                                                   , false
                                                                    )
                                               );
         }
