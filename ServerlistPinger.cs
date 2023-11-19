@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Net;
+using System.Net.Sockets;
 using System.Threading;
 
 namespace AMP.DedicatedServer {
@@ -46,35 +47,37 @@ namespace AMP.DedicatedServer {
                 httpWebRequest.ServerCertificateValidationCallback = (message, certificate, chain, sslPolicyErrors) => true;
             }
 
-            using(var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream())) {
-                string loginjson = JsonConvert.SerializeObject(new {
-                    port        = ServerInit.serverConfig.serverSettings.port,
-                    name        = ServerInit.serverConfig.serverSettings.servername,
-                    description = ServerInit.serverConfig.serverSettings.serverdescription,
-                    icon        = ServerInit.serverIcon,
-                    max_players = ServerInit.serverConfig.serverSettings.max_players,
-                    map         = ModManager.serverInstance.currentLevel,
-                    mode        = ModManager.serverInstance.currentMode,
-                    version     = Defines.MOD_VERSION,
-                    pvp_enabled = ServerInit.serverConfig.hostingSettings.pvpEnable,
-                    static_map  = ServerInit.serverConfig.hostingSettings.allowMapChange
-                });
+            try {
+                using(var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream())) {
+                    string loginjson = JsonConvert.SerializeObject(new {
+                        port        = ServerInit.serverConfig.serverSettings.port,
+                        name        = ServerInit.serverConfig.serverSettings.servername,
+                        description = ServerInit.serverConfig.serverSettings.serverdescription,
+                        icon        = ServerInit.serverIcon,
+                        max_players = ServerInit.serverConfig.serverSettings.max_players,
+                        map         = ModManager.serverInstance.currentLevel,
+                        mode        = ModManager.serverInstance.currentMode,
+                        version     = Defines.MOD_VERSION,
+                        pvp_enabled = ServerInit.serverConfig.hostingSettings.pvpEnable,
+                        static_map  = ServerInit.serverConfig.hostingSettings.allowMapChange
+                    });
 
-                streamWriter.Write(loginjson);
-                streamWriter.Flush();
-                streamWriter.Close();
+                    streamWriter.Write(loginjson);
+                    streamWriter.Flush();
+                    streamWriter.Close();
 
-                var httpResponse = (HttpWebResponse) httpWebRequest.GetResponse();
-                using(var streamReader = new StreamReader(httpResponse.GetResponseStream())) {
-                    var result = streamReader.ReadToEnd();
-                    if(result.Contains("true")) {
-                        Log.Info("Server successfully registered in serverlist.");
-                    } else {
-                        Log.Err("Registration in serverlist failed: " + result);
-                        return;
+                    var httpResponse = (HttpWebResponse) httpWebRequest.GetResponse();
+                    using(var streamReader = new StreamReader(httpResponse.GetResponseStream())) {
+                        var result = streamReader.ReadToEnd();
+                        if(result.Contains("true")) {
+                            Log.Info("Server successfully registered in serverlist.");
+                        } else {
+                            Log.Err("Registration in serverlist failed: " + result);
+                            return;
+                        }
                     }
                 }
-            }
+            }catch(WebException) { return; }
 
             UpdateData();
             pinger = new Thread(new ThreadStart(() => {
@@ -90,29 +93,31 @@ namespace AMP.DedicatedServer {
                             httpWebRequest.ServerCertificateValidationCallback = (message, certificate, chain, sslPolicyErrors) => true;
                         }
 
-                        using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream())) {
-                            string loginjson = JsonConvert.SerializeObject(new {
-                                port = ServerInit.serverConfig.serverSettings.port,
-                                players = ModManager.serverInstance.connectedClients,
-                                map = ModManager.serverInstance.currentLevel,
-                                mode = ModManager.serverInstance.currentMode
-                            });
+                        try {
+                            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream())) {
+                                string loginjson = JsonConvert.SerializeObject(new {
+                                    port = ServerInit.serverConfig.serverSettings.port,
+                                    players = ModManager.serverInstance.connectedClients,
+                                    map = ModManager.serverInstance.currentLevel,
+                                    mode = ModManager.serverInstance.currentMode
+                                });
 
-                            streamWriter.Write(loginjson);
-                            streamWriter.Flush();
-                            streamWriter.Close();
+                                streamWriter.Write(loginjson);
+                                streamWriter.Flush();
+                                streamWriter.Close();
 
-                            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-                            using (var streamReader = new StreamReader(httpResponse.GetResponseStream())) {
-                                var result = streamReader.ReadToEnd();
-                                bool success = result.Contains("true");
-                                if (success) {
-                                    UpdateData();
-                                } else {
-                                    Log.Err("Serverlist update failed: " + result);
+                                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                                using (var streamReader = new StreamReader(httpResponse.GetResponseStream())) {
+                                    var result = streamReader.ReadToEnd();
+                                    bool success = result.Contains("true");
+                                    if (success) {
+                                        UpdateData();
+                                    } else {
+                                        Log.Err("Serverlist update failed: " + result);
+                                    }
                                 }
                             }
-                        }
+                        } catch(WebException) { }
                     }
                 }
             }));
