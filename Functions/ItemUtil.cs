@@ -2,7 +2,7 @@
 using UnityEngine;
 
 namespace AMP.DedicatedServer.Functions {
-    public class ItemUtil {
+    public static class ItemUtil {
         public static void SpawnItem(string itemId, Vector3 position) {
             SpawnItem(itemId, position, Vector3.zero);
         }

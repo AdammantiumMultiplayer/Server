@@ -94,6 +94,7 @@
     <Compile Include="Commands\PosCommand.cs" />
     <Compile Include="Commands\StopCommand.cs" />
     <Compile Include="Commands\HelpCommand.cs" />
+    <Compile Include="Functions\CreatureUtil.cs" />
     <Compile Include="Plugins\PluginConfigLoader.cs" />
     <Compile Include="Plugins\PluginConfig.cs" />
     <Compile Include="ServerConfig.cs" />
