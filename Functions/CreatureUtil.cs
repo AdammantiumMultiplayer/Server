@@ -1,11 +1,11 @@
-﻿using AMP.Network.Packets.Implementation;
+﻿using AMP.Logging;
+using AMP.Network.Packets.Implementation;
 using UnityEngine;
-using static ThunderRoad.AnimationData.Clip;
 
 namespace AMP.DedicatedServer.Functions {
     public static class CreatureUtil {
 
-        public static int SpawnCreature(string type, string container, Vector3 pos, byte factionId = 0) {
+        public static int SpawnCreature(string type, string container, Vector3 pos, float rotationY = 0, byte factionId = 0, int health = 500) {
             if(type == null || type.Length == 0) type = "HumanMale";
             if(container == null || container.Length == 0) container = "BanditRogue";
 
@@ -15,9 +15,9 @@ namespace AMP.DedicatedServer.Functions {
                 position = pos,
                 container = container,
                 factionId = factionId,
-                rotationY = 0,
-                health = 1000,
-                maxHealth = 1000,
+                rotationY = rotationY,
+                health = health,
+                maxHealth = health,
                 height = 2,
                 colors = new Color[] {
                     Color.white, Color.white, Color.white,

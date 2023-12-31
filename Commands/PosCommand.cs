@@ -1,7 +1,5 @@
 ﻿using AMP.Logging;
 using AMP.Network.Data;
-using System.Linq;
-using System.Net.Http;
 
 namespace AMP.DedicatedServer.Commands {
     internal class PosCommand : CommandHandler {
