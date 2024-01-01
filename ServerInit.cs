@@ -1,5 +1,6 @@
 ﻿using AMP.Data;
 using AMP.DedicatedServer.Commands;
+using AMP.DedicatedServer.Plugins;
 using AMP.Logging;
 using AMP.Network.Server;
 using System;
@@ -43,6 +44,8 @@ namespace AMP.DedicatedServer {
             
             ModManager.safeFile = new SafeFile();
             ModManager.safeFile.hostingSettings = serverConfig.hostingSettings;
+
+            ModManager.banlist = Banlist.Load("banlist.json");
 
             Server.DEFAULT_MAP  = serverConfig.serverSettings.map;
             Server.DEFAULT_MODE = serverConfig.serverSettings.mode;

@@ -84,6 +84,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandHandler.cs" />
+    <Compile Include="Commands\UnbanCommand.cs" />
+    <Compile Include="Commands\BanCommand.cs" />
     <Compile Include="Commands\ListCommand.cs" />
     <Compile Include="Commands\SpawnItemCommand.cs" />
     <Compile Include="Commands\SayCommand.cs" />
