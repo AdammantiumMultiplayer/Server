@@ -19,7 +19,7 @@ namespace AMP.DedicatedServer {
         private static string last_map = "";
         private static string last_mode = "";
         private static int last_playercount = 0;
-        private static DateTime last_update = DateTime.Now;
+        private static DateTime last_update = DateTime.MinValue;
         internal static bool ShouldUpdateMasterServer() {
             bool ShouldUpdate = ModManager.serverInstance.connectedClients      != last_playercount 
                              || ModManager.serverInstance.currentLevel          != last_map
@@ -78,7 +78,6 @@ namespace AMP.DedicatedServer {
                 }
             }catch(WebException) { return; }
 
-            UpdateData();
             pinger = new Thread(new ThreadStart(() => {
                 while(ModManager.serverInstance != null) {
                     Thread.Sleep(check_update);
@@ -98,7 +97,7 @@ namespace AMP.DedicatedServer {
                                     port = ServerInit.serverConfig.serverSettings.port,
                                     players = ModManager.serverInstance.connectedClients,
                                     map = ModManager.serverInstance.currentLevel,
-                                    mode = ModManager.serverInstance.currentMode
+                                    mode = (ServerInit.gamemode_override != null && ServerInit.gamemode_override != string.Empty ? ServerInit.gamemode_override : ModManager.serverInstance.currentMode)
                                 });
 
                                 streamWriter.Write(loginjson);

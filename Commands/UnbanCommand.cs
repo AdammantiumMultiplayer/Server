@@ -1,8 +1,4 @@
 ﻿using AMP.Data;
-using AMP.Network.Data;
-using AMP.Network.Server;
-using System;
-using System.Linq;
 
 namespace AMP.DedicatedServer.Commands {
     internal class UnbanCommand : CommandHandler {

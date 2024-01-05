@@ -1,6 +1,5 @@
 ﻿using AMP.Data;
 using AMP.DedicatedServer.Commands;
-using AMP.DedicatedServer.Plugins;
 using AMP.Logging;
 using AMP.Network.Server;
 using System;
@@ -16,6 +15,7 @@ namespace AMP.DedicatedServer {
         public static int port = 13698;
 
         internal static string serverIcon = "";
+        internal static string gamemode_override = "";
 
         static void Main(string[] args) {
             Log.loggerType = Log.LoggerType.CONSOLE;
@@ -149,6 +149,13 @@ namespace AMP.DedicatedServer {
                     CommandHandler.RegisterCommandHandler(handler);
                 }
             }
+        }
+
+        public static void SetGameModeOverride(string gamemode) {
+            gamemode_override = gamemode;
+        }
+        public static void ResetGameModeOverride() {
+            gamemode_override = string.Empty;
         }
     }
 }
