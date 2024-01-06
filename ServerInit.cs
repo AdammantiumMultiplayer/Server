@@ -152,10 +152,12 @@ namespace AMP.DedicatedServer {
         }
 
         public static void SetGameModeOverride(string gamemode) {
+            Log.Info(Defines.SERVER, $"Gamemode changed to \"{gamemode}\".");
             gamemode_override = gamemode;
         }
         public static void ResetGameModeOverride() {
             gamemode_override = string.Empty;
+            Log.Info(Defines.SERVER, $"Gamemode set back to map default.");
         }
     }
 }
