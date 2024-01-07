@@ -15,7 +15,7 @@ namespace AMP.DedicatedServer.Commands {
             Log.Info("  Creatures: " + ModManager.serverInstance.spawnedCreatures);
             Log.Info("    Clients: " + ModManager.serverInstance.connectedClients + " / " + ModManager.serverInstance.netamiteServer.MaxClients);
             if(ModManager.serverInstance.connectedClients > 0)
-                Log.Info("     " + String.Join(", ", ModManager.serverInstance.connectedClientList.Values.ToArray()));
+                Log.Info("     " + String.Join(", ", ModManager.serverInstance.connectedClientList.Select(p => $"{p.Value} ({p.Key})")));
 
             return null;
         }

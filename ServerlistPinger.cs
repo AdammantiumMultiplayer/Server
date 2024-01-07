@@ -69,9 +69,9 @@ namespace AMP.DedicatedServer {
                     using(var streamReader = new StreamReader(httpResponse.GetResponseStream())) {
                         var result = streamReader.ReadToEnd();
                         if(result.Contains("true")) {
-                            Log.Info("Server successfully registered in serverlist.");
+                            Log.Info(Defines.SERVER, "Server successfully registered in serverlist.");
                         } else {
-                            Log.Err("Registration in serverlist failed: " + result);
+                            Log.Err(Defines.SERVER, "Registration in serverlist failed: " + result);
                             return;
                         }
                     }
@@ -111,7 +111,7 @@ namespace AMP.DedicatedServer {
                                     if (success) {
                                         UpdateData();
                                     } else {
-                                        Log.Err("Serverlist update failed: " + result);
+                                        Log.Err(Defines.SERVER, "Serverlist update failed: " + result);
                                     }
                                 }
                             }
@@ -149,9 +149,9 @@ namespace AMP.DedicatedServer {
                         using(var streamReader = new StreamReader(httpResponse.GetResponseStream())) {
                             var result = streamReader.ReadToEnd();
                             if(result.Contains("true")) {
-                                Log.Info("Server successfully unregistered from serverlist.");
+                                Log.Info(Defines.SERVER, "Server successfully unregistered from serverlist.");
                             } else {
-                                Log.Err("Deregistration from serverlist failed: " + result);
+                                Log.Err(Defines.SERVER, "Deregistration from serverlist failed: " + result);
                             }
                         }
                     }
