@@ -58,7 +58,8 @@ namespace AMP.DedicatedServer {
                         mode        = ModManager.serverInstance.currentMode,
                         version     = Defines.MOD_VERSION,
                         pvp_enabled = ServerInit.serverConfig.hostingSettings.pvpEnable,
-                        static_map  = ServerInit.serverConfig.hostingSettings.allowMapChange
+                        static_map  = ServerInit.serverConfig.hostingSettings.allowMapChange,
+                        password    = ModManager.serverInstance.netamiteServer.HasConnectToken,
                     });
 
                     streamWriter.Write(loginjson);
