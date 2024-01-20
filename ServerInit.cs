@@ -19,6 +19,11 @@ namespace AMP.DedicatedServer {
 
         static void Main(string[] args) {
             Log.loggerType = Log.LoggerType.CONSOLE;
+            Netamite.Logging.Log.loggerType = Netamite.Logging.Log.LoggerType.EVENT_ONLY;
+
+            Netamite.Logging.Log.onLogMessage += (type, message) => {
+                Log.Msg((Log.Type) type, message);
+            };
 
             Console.OutputEncoding = System.Text.Encoding.UTF8;
 
@@ -50,7 +55,7 @@ namespace AMP.DedicatedServer {
             Server.DEFAULT_MAP  = serverConfig.serverSettings.map;
             Server.DEFAULT_MODE = serverConfig.serverSettings.mode;
 
-            port        = serverConfig.serverSettings.port;
+            port             = serverConfig.serverSettings.port;
             uint max_players = (uint) serverConfig.serverSettings.max_players;
             string password  = serverConfig.serverSettings.password;
 
