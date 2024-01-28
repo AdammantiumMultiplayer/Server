@@ -57,6 +57,13 @@
     <Reference Include="Netamite">
       <HintPath>..\..\Netamite\Netamite.Base\bin\Debug\Netamite.dll</HintPath>
     </Reference>
+    <Reference Include="Netamite.Unity">
+      <HintPath>..\Adammantium Multiplayer Mod\bin\Debug\Netamite.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Netamite.Voice, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Netamite\Netamite.Voice\bin\Debug\Netamite.Voice.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Libs\Newtonsoft.Json.dll</HintPath>

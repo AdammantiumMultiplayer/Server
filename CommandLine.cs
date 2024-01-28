@@ -16,7 +16,7 @@ namespace AMP.DedicatedServer {
                 }
             } else {
                 for (int i=0; i<args.Length; i++) {
-                    if (args[i].StartsWith("-")) {
+                    if (args[i].StartsWith("-") || args[i].StartsWith("/")) {
                         if ((args.Length - 1) > i) {
                             this.args[args[i].Substring(1)] = args[i + 1];
                         } else {
@@ -39,7 +39,7 @@ namespace AMP.DedicatedServer {
         private bool UsingOldCommandLine(string[] args) {
             if (args.Length > 0) {
                 for (int i=0; i<args.Length; i++) {
-                    if (args[i].StartsWith("-")) {
+                    if (args[i].StartsWith("-") || args[i].StartsWith("/")) {
                         return false;
                     }
                 }
