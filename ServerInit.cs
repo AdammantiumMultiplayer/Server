@@ -17,7 +17,7 @@ namespace AMP.DedicatedServer {
         internal static string serverIcon = "";
         internal static string gamemode_override = "";
 
-        static void Main(string[] args) {
+        public static void Start(CommandLine cmd) {
             Log.loggerType = Log.LoggerType.CONSOLE;
             Netamite.Logging.Log.loggerType = Netamite.Logging.Log.LoggerType.EVENT_ONLY;
 
@@ -59,16 +59,12 @@ namespace AMP.DedicatedServer {
             uint max_players = (uint) serverConfig.serverSettings.max_players;
             string password  = serverConfig.serverSettings.password;
 
-            if(args.Length > 0) {
-                port = ushort.Parse(args[0]);
+            if (cmd.HasArg("port")) {
+                port = ushort.Parse(cmd.GetArg("port"));
+            }
 
-                if(args.Length > 1) {
-                    max_players = uint.Parse(args[1]);
-
-                    if(args.Length > 2) {
-                        password = args[2];
-                    }
-                }
+            if (cmd.HasArg("max_players")) {
+                max_players = uint.Parse(cmd.GetArg("max_players"));
             }
 
             if(File.Exists("icon.jpg")) {

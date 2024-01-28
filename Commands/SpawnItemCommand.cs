@@ -5,7 +5,7 @@ namespace AMP.DedicatedServer.Commands {
     internal class SpawnItemCommand : CommandHandler {
 
         public override string[] ALIASES => new string[] { "si", "spawnitem" };
-        public override string   HELP    => "Shows the status of the server.";
+        public override string   HELP    => "Spawns the given Item at the given position";
 
         public override string Process(string[] args) {
             if(args.Length == 4) {

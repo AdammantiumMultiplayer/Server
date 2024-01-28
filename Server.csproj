@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{86206478-6BB2-4A8F-8275-10EA44897D9D}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>AMP.DedicatedServer</RootNamespace>
+    <RootNamespace>AMP.Bootstrap</RootNamespace>
     <AssemblyName>AMP_Server</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -51,7 +51,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>AMP.DedicatedServer.ServerInit</StartupObject>
+    <StartupObject>AMP.Bootstrap.Launcher</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Netamite">
@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandHandler.cs" />
+    <Compile Include="CommandLine.cs" />
     <Compile Include="Commands\UnbanCommand.cs" />
     <Compile Include="Commands\BanCommand.cs" />
     <Compile Include="Commands\ListCommand.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Functions\CreatureUtil.cs" />
     <Compile Include="Plugins\PluginConfigLoader.cs" />
     <Compile Include="Plugins\PluginConfig.cs" />
+    <Compile Include="ServerBootstrap.cs" />
     <Compile Include="ServerConfig.cs" />
     <Compile Include="Data\Defines.cs" />
     <Compile Include="Functions\ItemUtil.cs" />
