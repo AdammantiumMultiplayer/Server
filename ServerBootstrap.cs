@@ -1,13 +1,18 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using AMP.DedicatedServer;
+using AMP.Logging;
 
 namespace AMP.Bootstrap {
     class Launcher {
         static void Main(string[] args) {
             Main(new CommandLine(args));
         }
+
+        private static List<string> missingFiles = new List<string>();
 
         static void Main(CommandLine cmd) {
             if(cmd.HasArg("?") || cmd.HasArg("help")) {
@@ -31,11 +36,16 @@ namespace AMP.Bootstrap {
                     CheckFile("ThunderRoad.dll");
                     CheckFile("ThunderRoad.Manikin.dll");
 
-                    ServerInit.Start(cmd);
+                    if(missingFiles.Count == 0) {
+                        ServerInit.Start(cmd);
+                    } else {
+                        throw new Exception("Missing dependencies:\n" + string.Join("\n", missingFiles) + "\n\nRead which files are required in the README");
+                    }
                 } catch(Exception ex) {
-                    Console.WriteLine(ex.ToString());
-                    Console.WriteLine("\nError: " + ex.Message);
-                    Console.WriteLine("An error occurred. See latest error.txt entry");
+                    //Console.WriteLine(ex.ToString());
+                    Log.Err("Error: " + ex.Message);
+                    Log.Err("\nAn error occurred. See latest error.txt entry");
+
                     using(StreamWriter writer = new StreamWriter("error.txt", true)) {
                         writer.WriteLine("\n--- " + DateTime.Now.ToString() + " ---");
                         writer.Write(ex.ToString());
@@ -50,16 +60,15 @@ namespace AMP.Bootstrap {
             bool output_exists = File.Exists(output);
             if (File.Exists(file) && !output_exists) {
                 File.Move(file, output);
-                Console.WriteLine("Found " + file + " renamed it to " + output);
+                Log.Warn("Found " + file + " renamed it to " + output);
             } else if (!output_exists) {
-                Console.WriteLine("Missing dependency! (" + file + " or " + output + "). Read which files are required in the README");
-                throw new Exception("Missing dependency! (" + file + " or " + output + "). Read which files are required in the README");
+                missingFiles.Add(output);
             }
         }
 
         public static void CheckFile(string file) {
             if (!File.Exists(file)) {
-                throw new Exception("Missing dependency! (" + file + "). Read which files are required in the README");
+                missingFiles.Add(file);
             }
         }
     }

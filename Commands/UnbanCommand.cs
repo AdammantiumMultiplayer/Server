@@ -3,7 +3,7 @@
 namespace AMP.DedicatedServer.Commands {
     internal class UnbanCommand : CommandHandler {
         public override string[] ALIASES => new string[] { "unban" };
-        public override string HELP => "Bans a player";
+        public override string HELP => "Unbans a player";
 
         public override string Process(string[] args) {
             if(args.Length >= 1) {
