@@ -5,6 +5,7 @@ namespace AMP.DedicatedServer {
         public virtual string NAME { get; }
         public virtual string AUTHOR { get; }
         public virtual string VERSION { get; }
+        public virtual string FILE { get; set; }
 
         public virtual void OnStart() { }
         public virtual void OnStop() { }

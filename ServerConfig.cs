@@ -27,6 +27,8 @@ namespace AMP.DedicatedServer {
             public bool ignoreCertificateErrors = false;
             public string servername = "Unnamed Server";
             public string serverdescription = "No description";
+
+            public bool plugin_autorefresh = false;
         }
 
         #region Save and Load
