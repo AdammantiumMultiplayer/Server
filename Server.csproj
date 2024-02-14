@@ -83,6 +83,8 @@
   <ItemGroup>
     <Compile Include="CommandHandler.cs" />
     <Compile Include="CommandLine.cs" />
+    <Compile Include="Commands\PluginUnloadCommand.cs" />
+    <Compile Include="Commands\PluginLoadCommand.cs" />
     <Compile Include="Commands\UnbanCommand.cs" />
     <Compile Include="Commands\BanCommand.cs" />
     <Compile Include="Commands\ListCommand.cs" />
@@ -98,6 +100,7 @@
     <Compile Include="Functions\CreatureUtil.cs" />
     <Compile Include="Plugins\PluginConfigLoader.cs" />
     <Compile Include="Plugins\PluginConfig.cs" />
+    <Compile Include="Plugins\PluginWatcher.cs" />
     <Compile Include="ServerBootstrap.cs" />
     <Compile Include="ServerConfig.cs" />
     <Compile Include="Data\Defines.cs" />
