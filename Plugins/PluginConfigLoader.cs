@@ -7,15 +7,16 @@ using System.IO;
 namespace AMP.DedicatedServer.Plugins {
     internal class PluginConfigLoader {
 
-        private static Dictionary<AMP_Plugin, PluginConfig> configs = new Dictionary<AMP_Plugin, PluginConfig>();
+        private static Dictionary<String, PluginConfig> configs = new Dictionary<String, PluginConfig>();
 
         internal static PluginConfig GetConfig(AMP_Plugin plugin) {
-            if(configs.ContainsKey(plugin)) {
-                return configs[plugin];
+            if(configs.ContainsKey(plugin.FILE)) {
+                return configs[plugin.FILE];
             }
             return null;
         }
 
+        // BUG: Is there a memeory leak in LoadConfig? (Bigger Config = Bigger Leak?). Could it be JsonConvert.DeserializeObject?
         internal static bool LoadConfig(AMP_Plugin plugin, PluginConfig config) {
 
             string path = "plugins/" + plugin.NAME + ".json";
@@ -23,14 +24,14 @@ namespace AMP.DedicatedServer.Plugins {
             if(File.Exists(path)) {
                 string json = File.ReadAllText(path);
                 try {
-                    config = (PluginConfig) JsonConvert.DeserializeObject(json, config.GetType());
+                    config = (PluginConfig)JsonConvert.DeserializeObject(json, config.GetType());
                 } catch(Exception e) {
                     Log.Err(e);
                     save = false;
                 }
             }
 
-            configs.Add(plugin, config);
+            configs[plugin.FILE] = config;
 
             if(save) SaveConfig(plugin);
 
@@ -44,6 +45,12 @@ namespace AMP.DedicatedServer.Plugins {
             string path = "plugins/" + plugin.NAME + ".json";
             string json = JsonConvert.SerializeObject(pluginConfig, Formatting.Indented);
             File.WriteAllText(path, json);
+        }
+
+        internal static void UnloadConfig(AMP_Plugin plugin) {
+            if (configs[plugin.FILE] != null) {
+                configs[plugin.FILE] = null;
+            }
         }
     }
 }

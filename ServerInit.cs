@@ -113,6 +113,9 @@ namespace AMP.DedicatedServer {
 
             #region Plugins
             PluginLoader.LoadPlugins("plugins");
+            if(serverConfig.serverSettings.plugin_autorefresh) {
+                PluginWatcher.InitWatcher();
+            }
 
             int plugin_command_count = CommandHandler.CommandHandlers.Count - default_command_count;
             #endregion
