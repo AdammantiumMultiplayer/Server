@@ -61,10 +61,22 @@ namespace AMP.DedicatedServer {
 
             if (cmd.HasArg("port")) {
                 port = ushort.Parse(cmd.GetArg("port"));
+                Log.Warn(Defines.SERVER, $"Overwritten Config with Parameter [port : {serverConfig.serverSettings.port} => {port}]");
             }
 
             if (cmd.HasArg("max_players")) {
                 max_players = uint.Parse(cmd.GetArg("max_players"));
+                Log.Warn(Defines.SERVER, $"Overwritten Config with Parameter [max_players : {serverConfig.serverSettings.port} => {max_players}]");
+            }
+
+            if(cmd.HasArg("pvp")) {
+                bool oldVal = serverConfig.hostingSettings.pvpEnable;
+                serverConfig.hostingSettings.pvpEnable = bool.Parse(cmd.GetArg("pvp"));
+                Log.Warn(Defines.SERVER, $"Overwritten Config with Parameter [pvp : {oldVal} => {serverConfig.hostingSettings.pvpEnable}]");
+            }
+
+            if(cmd.HasArg("password")) {
+                password = cmd.GetArg("password");
             }
 
             if(File.Exists("icon.jpg")) {

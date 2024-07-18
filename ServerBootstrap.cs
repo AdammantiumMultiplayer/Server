@@ -18,7 +18,9 @@ namespace AMP.Bootstrap {
             if(cmd.HasArg("?") || cmd.HasArg("help")) {
                 Console.WriteLine("Possible Arguments:");
                 Console.WriteLine("-port <port>\t\tSpecify a port, this will override the config file");
+                Console.WriteLine("-password <password>\tSpecify a password");
                 Console.WriteLine("-max_players <num>\tSpecify a max amount of player, this will override the config file");
+                Console.WriteLine("-pvp <true/false>\tSets PvP state");
             } else {
                 try {
                     Rename("ZZZ_AMP.dll", "AMP.dll");

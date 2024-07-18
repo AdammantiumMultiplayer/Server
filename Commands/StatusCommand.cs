@@ -10,6 +10,7 @@ namespace AMP.DedicatedServer.Commands {
 
         public override string Process(string[] args) {
             Log.Info("Status:");
+            Log.Info("        PvP: " + ServerInit.serverConfig.hostingSettings.pvpEnable);
             Log.Info("        Map: " + ModManager.serverInstance.currentLevel + " / " + ModManager.serverInstance.currentMode);
             Log.Info("      Items: " + ModManager.serverInstance.spawnedItems);
             Log.Info("  Creatures: " + ModManager.serverInstance.spawnedCreatures);
