@@ -48,8 +48,8 @@ namespace AMP.DedicatedServer.Plugins {
         }
 
         internal static void UnloadConfig(AMP_Plugin plugin) {
-            if (configs[plugin.FILE] != null) {
-                configs[plugin.FILE] = null;
+            if (configs.ContainsKey(plugin.FILE)) {
+                configs.Remove(plugin.FILE);
             }
         }
     }
