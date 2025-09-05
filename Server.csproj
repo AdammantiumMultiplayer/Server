@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -53,20 +53,30 @@
   <PropertyGroup>
     <StartupObject>AMP.Bootstrap.Launcher</StartupObject>
   </PropertyGroup>
+
+  <!-- Change these to the paths on your system. -->
+  <PropertyGroup>
+    <GameDirectory>/mnt/datagrave/Steam/steamapps/common/Blade &amp; Sorcery</GameDirectory>
+    <ModDirectory>$(GameDirectory)\BladeAndSorcery_Data\StreamingAssets\Mods\MultiplayerMod</ModDirectory>
+  </PropertyGroup>
+
   <ItemGroup>
+    <Reference Include="AMP">
+      <HintPath>$(ModDirectory)\AMP.dll</HintPath>
+    </Reference>
     <Reference Include="Netamite">
-      <HintPath>..\..\Netamite\Netamite.Base\bin\Debug\Netamite.dll</HintPath>
+      <HintPath>$(ModDirectory)\Netamite.dll</HintPath>
     </Reference>
     <Reference Include="Netamite.Unity">
-      <HintPath>..\Adammantium Multiplayer Mod\bin\Debug\Netamite.Unity.dll</HintPath>
+      <HintPath>$(ModDirectory)\Netamite.Unity.dll</HintPath>
     </Reference>
     <Reference Include="Netamite.Voice, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Netamite\Netamite.Voice\bin\Debug\Netamite.Voice.dll</HintPath>
+      <HintPath>$(ModDirectory)\Netamite.Voice.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Libs\Newtonsoft.Json.dll</HintPath>
+      <HintPath>$(ModDirectory)\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -74,10 +84,10 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="ThunderRoad">
-      <HintPath>G:\Steam\steamapps\common\Blade &amp; Sorcery\BladeAndSorcery_Data\Managed\ThunderRoad.dll</HintPath>
+      <HintPath>$(GameDirectory)\BladeAndSorcery_Data\Managed\ThunderRoad.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>G:\Steam\steamapps\common\Blade &amp; Sorcery\BladeAndSorcery_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>$(GameDirectory)\BladeAndSorcery_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -126,12 +136,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Adammantium Multiplayer Mod\Adammantium Multiplayer Mod.csproj">
-      <Project>{98EED107-D836-466F-AE3E-7CB1E552BD62}</Project>
-      <Name>Adammantium Multiplayer Mod</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

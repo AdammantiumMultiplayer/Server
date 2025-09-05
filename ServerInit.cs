@@ -59,6 +59,13 @@ namespace AMP.DedicatedServer {
             uint max_players = (uint) serverConfig.serverSettings.max_players;
             string password  = serverConfig.serverSettings.password;
 
+            if(cmd.HasArg("map") && cmd.HasArg("mode")) {
+                Log.Warn(Defines.SERVER, $"Overwritten Config with Parameter [map : {Server.DEFAULT_MAP} => {cmd.GetArg("map")}]");
+                Log.Warn(Defines.SERVER, $"Overwritten Config with Parameter [mode : {Server.DEFAULT_MODE} => {cmd.GetArg("mode")}]");
+                Server.DEFAULT_MAP = cmd.GetArg("map");
+                Server.DEFAULT_MODE = cmd.GetArg("mode");
+            }
+            
             if (cmd.HasArg("port")) {
                 port = ushort.Parse(cmd.GetArg("port"));
                 Log.Warn(Defines.SERVER, $"Overwritten Config with Parameter [port : {serverConfig.serverSettings.port} => {port}]");
