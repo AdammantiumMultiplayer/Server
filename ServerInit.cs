@@ -13,6 +13,8 @@ namespace AMP.DedicatedServer {
         internal static ServerConfig serverConfig;
 
         public static int port = 13698;
+        public static string servername = "";
+        public static string description = "";
 
         internal static string serverIcon = "";
         internal static string gamemode_override = "";
@@ -65,34 +67,47 @@ namespace AMP.DedicatedServer {
                 Server.DEFAULT_MAP = cmd.GetArg("map");
                 Server.DEFAULT_MODE = cmd.GetArg("mode");
             }
+
+            if (cmd.HasArg("servername")) {
+                Log.Warn(Defines.SERVER, $"Overwritten Config with Parameter [servername : {ServerInit.serverConfig.serverSettings.servername} => {cmd.GetArg("servername")}]");
+                servername = cmd.GetArg("servername");
+            } else {
+                servername = ServerInit.serverConfig.serverSettings.servername;
+            }
+            if (cmd.HasArg("description")) {
+                Log.Warn(Defines.SERVER, $"Overwritten Config with Parameter [description : {ServerInit.serverConfig.serverSettings.serverdescription} => {cmd.GetArg("description")}]");
+                description = cmd.GetArg("description");
+            } else {
+                description = ServerInit.serverConfig.serverSettings.serverdescription;
+            }
             
             if (cmd.HasArg("port")) {
                 port = ushort.Parse(cmd.GetArg("port"));
                 Log.Warn(Defines.SERVER, $"Overwritten Config with Parameter [port : {serverConfig.serverSettings.port} => {port}]");
             }
-
+            
             if (cmd.HasArg("max_players")) {
                 max_players = uint.Parse(cmd.GetArg("max_players"));
                 Log.Warn(Defines.SERVER, $"Overwritten Config with Parameter [max_players : {serverConfig.serverSettings.port} => {max_players}]");
             }
-
+            
             if(cmd.HasArg("pvp")) {
                 bool oldVal = serverConfig.hostingSettings.pvpEnable;
                 serverConfig.hostingSettings.pvpEnable = bool.Parse(cmd.GetArg("pvp"));
                 Log.Warn(Defines.SERVER, $"Overwritten Config with Parameter [pvp : {oldVal} => {serverConfig.hostingSettings.pvpEnable}]");
             }
-
+            
             if(cmd.HasArg("password")) {
                 password = cmd.GetArg("password");
             }
-
+            
             if(File.Exists("icon.jpg")) {
                 byte[] imageArray = File.ReadAllBytes("icon.jpg");
                 string base64ImageRepresentation = Convert.ToBase64String(imageArray);
                 serverIcon = base64ImageRepresentation;
                 //Log.Debug("Found custom server icon. Make sure its a jpg and 64x64.");
             }
-
+            
             ModManager.SetupNetamite();
             ModManager.HostDedicatedServer(max_players, port, password, OnStart);
 

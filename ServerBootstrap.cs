@@ -29,7 +29,7 @@ namespace AMP.Bootstrap {
                     CheckFile("Netamite.dll");
                     CheckFile("Netamite.Steam.dll");
                     CheckFile("Netamite.Unity.dll");
-                    CheckFile("Netamite.Voice.dll");
+                    CheckFile("Netamite.Unity.Voice.dll");
                     CheckFile("Newtonsoft.Json.dll");
                     CheckFile("Unity.ResourceManager.dll");
                     CheckFile("UnityEngine.CoreModule.dll");

@@ -13,7 +13,7 @@ namespace AMP.DedicatedServer {
 
         private static Thread pinger;
 
-        private static int check_update = 500;
+        private static int check_update = 30 * 1000; // 30 seconds
         private static int force_update = 55;
 
         private static string last_map = "";
@@ -49,9 +49,9 @@ namespace AMP.DedicatedServer {
             try {
                 using(var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream())) {
                     string loginjson = JsonConvert.SerializeObject(new {
-                        port        = ServerInit.serverConfig.serverSettings.port,
-                        name        = ServerInit.serverConfig.serverSettings.servername,
-                        description = ServerInit.serverConfig.serverSettings.serverdescription,
+                        port        = ServerInit.port,
+                        name        = ServerInit.servername,
+                        description = ServerInit.description,
                         icon        = ServerInit.serverIcon,
                         max_players = ServerInit.serverConfig.serverSettings.max_players,
                         map         = ModManager.serverInstance.currentLevel,
@@ -95,7 +95,7 @@ namespace AMP.DedicatedServer {
                         try {
                             using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream())) {
                                 string loginjson = JsonConvert.SerializeObject(new {
-                                    port = ServerInit.serverConfig.serverSettings.port,
+                                    port = ServerInit.port,
                                     players = ModManager.serverInstance.connectedClients,
                                     map = ModManager.serverInstance.currentLevel,
                                     mode = (ServerInit.gamemode_override != null && ServerInit.gamemode_override != string.Empty ? ServerInit.gamemode_override : ModManager.serverInstance.currentMode)
