@@ -93,6 +93,7 @@
   <ItemGroup>
     <Compile Include="CommandHandler.cs" />
     <Compile Include="CommandLine.cs" />
+    <Compile Include="Commands\PaperUICommand.cs" />
     <Compile Include="Commands\PluginUnloadCommand.cs" />
     <Compile Include="Commands\PluginLoadCommand.cs" />
     <Compile Include="Commands\UnbanCommand.cs" />

@@ -109,7 +109,7 @@ namespace AMP.DedicatedServer {
             }
             
             ModManager.SetupNetamite();
-            ModManager.HostDedicatedServer(max_players, port, password, OnStart);
+            ModManager.HostDedicatedServer(max_players, (ushort) port, password, OnStart);
 
 
             Console.CancelKeyPress += delegate {
